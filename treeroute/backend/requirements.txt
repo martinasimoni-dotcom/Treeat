@@ -1,0 +1,8 @@
+infrared-sdk
+fastapi
+uvicorn
+python-dotenv
+osmnx
+geopandas
+networkx
+requests

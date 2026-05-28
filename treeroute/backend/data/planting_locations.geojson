@@ -1,0 +1,32 @@
+{
+"type": "FeatureCollection",
+"name": "planting_locations",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379699824108791, 48.219995255989964 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379641072223482, 48.220055567947888 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379582320200996, 48.220115879876474 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379523568041328, 48.220176191775764 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379464815744473, 48.220236503645708 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379406063310437, 48.220296815486343 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.37934731073922, 48.220357127297653 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379288558030815, 48.22041743907964 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379229805185226, 48.220477750832316 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379171052202452, 48.220538062555654 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379101311145842, 48.220592723006234 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.379029108640427, 48.220646117534152 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378956905985032, 48.220699512017674 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378884703179637, 48.220752906456802 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378812500224253, 48.220806300851521 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378740297118874, 48.220859695201852 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378668093863507, 48.220913089507796 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.37859589045814, 48.220966483769338 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378523686902785, 48.221019877986471 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378451483197431, 48.221073272159224 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378379279342081, 48.221126666287567 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378307075336743, 48.221180060371523 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378234871181402, 48.22123345441107 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378168002203374, 48.221282903017432 ] } },
+{ "type": "Feature", "properties": { "avg_utci": 26.15625, "edge_score": 5006.5380942295287 }, "geometry": { "type": "Point", "coordinates": [ 16.378240206497626, 48.221229509019004 ] } }
+]
+}

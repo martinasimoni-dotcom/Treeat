@@ -1,0 +1,1 @@
+# Infrared SDK UTCI wrapper
