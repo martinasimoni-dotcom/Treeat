@@ -1,5 +1,5 @@
 # Railway reads this from the service's Root Directory.
-# Set Root Directory = treeroute/backend in the Railway UI.
+# Set Root Directory = backend in the Railway UI.
 [build]
 builder = "RAILPACK"
 

@@ -1,6 +1,6 @@
 import numpy as np
 
-grid = np.load(r'c:\Users\marts\Documents\10_IAAC\3_third term\Programming for AI\Treeat\treeroute\backend\data\utci_leopoldstadt.npy')
+grid = np.load(r'c:\Users\marts\Documents\10_IAAC\3_third term\Programming for AI\Treeat\backend\data\utci_leopoldstadt.npy')
 min_lon, min_lat = 16.375, 48.210
 max_lon, max_lat = 16.395708331616788, 48.22839741286381
 n_rows, n_cols = grid.shape

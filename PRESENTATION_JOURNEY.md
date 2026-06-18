@@ -84,7 +84,7 @@ instantly. The key lives only on the backend, which the public never sees.
 | Backend | **Railway** | GitHub fork `rimchoufani/Treeat`, runs `uvicorn main:app` |
 
 **Config that made it work:**
-- A `railway.toml` telling Railway the backend lives in `treeroute/backend` and
+- A `railway.toml` telling Railway the backend lives in `backend` and
   starts with `uvicorn main:app`.
 - `requirements.txt` pinned to the exact library versions (so the cloud installs
   the same packages my laptop had).
