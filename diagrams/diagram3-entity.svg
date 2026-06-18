@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="680" viewBox="0 0 900 680" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1A1A2E" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="680" fill="#FAFAF8"/>
+
+  <!-- Title -->
+  <text x="30" y="30" font-size="11" fill="#9CA3AF" letter-spacing="2">DIAGRAM 3 — ENTITY RELATIONSHIP</text>
+  <text x="30" y="54" font-size="22" fill="#1A1A2E" font-weight="bold">What data, and how is it related?</text>
+
+  <!-- ── AnalysisJob (center-top) ── -->
+  <rect x="330" y="80" width="210" height="190" rx="10" fill="white" stroke="#5BA85A" stroke-width="2" filter="url(#sh)"/>
+  <rect x="330" y="80" width="210" height="28" rx="10" fill="#5BA85A"/>
+  <rect x="330" y="96" width="210" height="12" fill="#5BA85A"/>
+  <text x="435" y="99" text-anchor="middle" font-size="10" fill="white" font-weight="bold">AnalysisJob</text>
+  <line x1="330" y1="108" x2="540" y2="108" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="342" y="123" font-size="9" fill="#374151">id <tspan fill="#8B6BA8" font-weight="bold">(PK)</tspan></text>
+  <text x="342" y="139" font-size="9" fill="#374151">status</text>
+  <text x="342" y="155" font-size="9" fill="#374151">progress</text>
+  <text x="342" y="171" font-size="9" fill="#374151">step</text>
+  <text x="342" y="187" font-size="9" fill="#374151">polygon_geojson</text>
+  <text x="342" y="203" font-size="9" fill="#374151">created_at</text>
+  <text x="342" y="219" font-size="8" fill="#9CA3AF" font-style="italic">+ wind heatmap (base64 PNG)</text>
+  <text x="342" y="261" font-size="8" fill="#9CA3AF" font-style="italic"></text>
+
+  <!-- ── WindGrid (right of job) ── -->
+  <rect x="600" y="80" width="272" height="192" rx="10" fill="white" stroke="#4A90D9" stroke-width="2" filter="url(#sh)"/>
+  <rect x="600" y="80" width="272" height="28" rx="10" fill="#4A90D9"/>
+  <rect x="600" y="96" width="272" height="12" fill="#4A90D9"/>
+  <text x="736" y="99" text-anchor="middle" font-size="10" fill="white" font-weight="bold">WindGrid</text>
+  <line x1="600" y1="108" x2="872" y2="108" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="612" y="123" font-size="9" fill="#374151">job_id <tspan fill="#4A90D9" font-weight="bold">(FK → AnalysisJob)</tspan></text>
+  <text x="612" y="139" font-size="9" fill="#374151">grid_2d_array</text>
+  <text x="612" y="155" font-size="9" fill="#374151">bounds_west / south / east / north</text>
+  <text x="612" y="171" font-size="9" fill="#374151">wind_min</text>
+  <text x="612" y="187" font-size="9" fill="#374151">wind_max</text>
+  <text x="612" y="203" font-size="9" fill="#374151">wind_mean</text>
+  <text x="612" y="262" font-size="8" fill="#9CA3AF" font-style="italic"></text>
+
+  <!-- ── PlantingFeature (center-bottom) ── -->
+  <rect x="300" y="360" width="240" height="240" rx="10" fill="white" stroke="#8B6BA8" stroke-width="2" filter="url(#sh)"/>
+  <rect x="300" y="360" width="240" height="28" rx="10" fill="#8B6BA8"/>
+  <rect x="300" y="376" width="240" height="12" fill="#8B6BA8"/>
+  <text x="420" y="379" text-anchor="middle" font-size="10" fill="white" font-weight="bold">PlantingFeature</text>
+  <line x1="300" y1="388" x2="540" y2="388" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="312" y="403" font-size="9" fill="#374151">id <tspan fill="#8B6BA8" font-weight="bold">(PK)</tspan></text>
+  <text x="312" y="419" font-size="9" fill="#374151">job_id <tspan fill="#4A90D9" font-weight="bold">(FK → AnalysisJob)</tspan></text>
+  <text x="312" y="435" font-size="9" fill="#374151">street_name</text>
+  <text x="312" y="451" font-size="9" fill="#374151">avg_wind (m/s)</text>
+  <text x="312" y="467" font-size="9" fill="#374151">score</text>
+  <text x="312" y="483" font-size="9" fill="#374151">length_m</text>
+  <text x="312" y="499" font-size="9" fill="#374151">recommended_trees</text>
+  <text x="312" y="515" font-size="9" fill="#374151">cost_estimate (€)</text>
+  <text x="312" y="531" font-size="9" fill="#374151">recommended_species <tspan fill="#E8934A" font-weight="bold">(FK)</tspan></text>
+  <text x="312" y="547" font-size="8" fill="#9CA3AF" font-style="italic">geometry: LineString GeoJSON</text>
+  <text x="312" y="563" font-size="8" fill="#9CA3AF" font-style="italic">node_u / node_v (OSMnx)</text>
+
+  <!-- ── TreeSpecies (right) ── -->
+  <rect x="600" y="360" width="272" height="192" rx="10" fill="white" stroke="#E8934A" stroke-width="2" filter="url(#sh)"/>
+  <rect x="600" y="360" width="272" height="28" rx="10" fill="#E8934A"/>
+  <rect x="600" y="376" width="272" height="12" fill="#E8934A"/>
+  <text x="736" y="379" text-anchor="middle" font-size="10" fill="white" font-weight="bold">TreeSpecies</text>
+  <line x1="600" y1="388" x2="872" y2="388" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="612" y="403" font-size="9" fill="#374151">id <tspan fill="#8B6BA8" font-weight="bold">(PK)</tspan></text>
+  <text x="612" y="419" font-size="9" fill="#374151">name</text>
+  <text x="612" y="435" font-size="9" fill="#374151">cooling_score (1–10)</text>
+  <text x="612" y="451" font-size="9" fill="#374151">LAI (Leaf Area Index)</text>
+  <text x="612" y="467" font-size="9" fill="#374151">PET_reduction (°C)</text>
+  <text x="612" y="483" font-size="9" fill="#374151">allergy_risk</text>
+  <text x="612" y="499" font-size="9" fill="#374151">avg_cost_eur</text>
+  <text x="612" y="515" font-size="8" fill="#9CA3AF" font-style="italic">source: tree_species.md</text>
+
+  <!-- ── Supplier (far right, below TreeSpecies) ── -->
+  <rect x="600" y="572" width="272" height="148" rx="10" fill="white" stroke="#E8934A" stroke-width="2" filter="url(#sh)"/>
+  <rect x="600" y="572" width="272" height="28" rx="10" fill="#E8934A"/>
+  <rect x="600" y="588" width="272" height="12" fill="#E8934A"/>
+  <text x="736" y="591" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Supplier</text>
+  <line x1="600" y1="600" x2="872" y2="600" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="612" y="615" font-size="9" fill="#374151">id <tspan fill="#8B6BA8" font-weight="bold">(PK)</tspan></text>
+  <text x="612" y="631" font-size="9" fill="#374151">name</text>
+  <text x="612" y="647" font-size="9" fill="#374151">location (Austria)</text>
+  <text x="612" y="663" font-size="9" fill="#374151">min_order</text>
+  <text x="612" y="679" font-size="9" fill="#374151">lead_time</text>
+  <text x="744" y="715" font-size="8" fill="#9CA3AF"></text>
+
+  <!-- ── RouteJob (far left, top) ── -->
+  <rect x="24" y="80" width="240" height="192" rx="10" fill="white" stroke="#5BA85A" stroke-width="2" filter="url(#sh)"/>
+  <rect x="24" y="80" width="240" height="28" rx="10" fill="#5BA85A"/>
+  <rect x="24" y="96" width="240" height="12" fill="#5BA85A"/>
+  <text x="144" y="99" text-anchor="middle" font-size="10" fill="white" font-weight="bold">RouteJob</text>
+  <line x1="24" y1="108" x2="264" y2="108" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="36" y="123" font-size="9" fill="#374151">id <tspan fill="#8B6BA8" font-weight="bold">(PK)</tspan></text>
+  <text x="36" y="139" font-size="9" fill="#374151">status</text>
+  <text x="36" y="155" font-size="9" fill="#374151">start_coords</text>
+  <text x="36" y="171" font-size="9" fill="#374151">end_coords</text>
+  <text x="36" y="187" font-size="9" fill="#374151">fastest_route_geojson</text>
+  <text x="36" y="203" font-size="9" fill="#374151">coolest_route_geojson</text>
+  <text x="36" y="219" font-size="8" fill="#9CA3AF" font-style="italic">distance_delta / wind_delta</text>
+  <text x="36" y="235" font-size="8" fill="#9CA3AF" font-style="italic">stats comparison</text>
+
+  <!-- ── RELATIONSHIP LINES ── -->
+
+  <!-- AnalysisJob 1 → 1 WindGrid -->
+  <line x1="540" y1="175" x2="598" y2="175" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="545" y="167" font-size="8" fill="#6B7280">1</text>
+  <text x="580" y="167" font-size="8" fill="#6B7280">1</text>
+  <rect x="544" y="178" width="44" height="14" rx="3" fill="#F3F4F6"/>
+  <text x="566" y="189" text-anchor="middle" font-size="7" fill="#6B7280">has one</text>
+
+  <!-- AnalysisJob 1 → N PlantingFeature -->
+  <line x1="435" y1="270" x2="420" y2="358" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="438" y="300" font-size="8" fill="#6B7280">1</text>
+  <text x="415" y="348" font-size="8" fill="#6B7280">N</text>
+  <rect x="425" y="303" width="52" height="14" rx="3" fill="#F3F4F6"/>
+  <text x="451" y="313" text-anchor="middle" font-size="7" fill="#6B7280">has many</text>
+
+  <!-- PlantingFeature N → 1 TreeSpecies -->
+  <line x1="540" y1="490" x2="598" y2="460" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="543" y="483" font-size="8" fill="#6B7280">N</text>
+  <text x="584" y="448" font-size="8" fill="#6B7280">1</text>
+  <rect x="547" y="458" width="36" height="14" rx="3" fill="#F3F4F6"/>
+  <text x="565" y="468" text-anchor="middle" font-size="7" fill="#6B7280">uses</text>
+
+  <!-- Supplier M:N TreeSpecies -->
+  <line x1="736" y1="570" x2="736" y2="552" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <rect x="742" y="555" width="44" height="14" rx="3" fill="#F3F4F6"/>
+  <text x="764" y="565" text-anchor="middle" font-size="7" fill="#6B7280">M:N supply</text>
+
+  <!-- RouteJob reads WindGrid (dashed) -->
+  <path d="M264,152 C290,152 310,152 328,152" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <rect x="268" y="136" width="52" height="14" rx="3" fill="#F3F4F6"/>
+  <text x="294" y="146" text-anchor="middle" font-size="7" fill="#6B7280">reads wind</text>
+
+  <!-- wind grid dashed line to WindGrid entity -->
+  <path d="M540,152 C568,152 584,152 598,152" fill="none" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3,4"/>
+
+  <!-- In-memory warning -->
+  <rect x="24" y="300" width="260" height="52" rx="8" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="154" y="320" text-anchor="middle" font-size="9" fill="#92400E" font-weight="bold">⚠ No persistent database</text>
+  <text x="154" y="336" text-anchor="middle" font-size="8" fill="#92400E">All entities stored in Python dict</text>
+  <text x="154" y="350" text-anchor="middle" font-size="8" fill="#B45309">State resets on server restart</text>
+
+  <!-- Legend -->
+  <rect x="0" y="660" width="900" height="20" fill="#F3F4F6"/>
+  <circle cx="24" cy="670" r="5" fill="#5BA85A"/>
+  <text x="34" y="674" font-size="8" fill="#374151">Job entities</text>
+  <circle cx="130" cy="670" r="5" fill="#4A90D9"/>
+  <text x="140" y="674" font-size="8" fill="#374151">Grid / simulation</text>
+  <circle cx="256" cy="670" r="5" fill="#8B6BA8"/>
+  <text x="266" y="674" font-size="8" fill="#374151">Feature / GeoJSON</text>
+  <circle cx="382" cy="670" r="5" fill="#E8934A"/>
+  <text x="392" y="674" font-size="8" fill="#374151">Reference data (Markdown)</text>
+  <text x="880" y="674" text-anchor="end" font-size="8" fill="#9CA3AF">Treeat · Architecture · 2026</text>
+</svg>

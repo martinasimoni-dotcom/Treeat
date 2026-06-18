@@ -1,9 +1,8 @@
 # Treeat
-# TreeRoute
 
 > *Where the trees meet — where you should plant.*
 
-A thermal comfort routing tool for pedestrians. TreeRoute simulates street-level UTCI across a city district, finds where trees would cool walkers the most per euro spent, and routes you home through the shadiest streets.
+A thermal comfort routing tool for pedestrians. Treeat simulates street-level UTCI across a city district, finds where trees would cool walkers the most per euro spent, and routes you home through the shadiest streets.
 
 No LiDAR. No expensive data. OSM + Infrared SDK.
 
@@ -17,7 +16,7 @@ Urban Heat Islands push street-level UTCI above safe thresholds. Pedestrians suf
 
 Existing research tools need expensive LiDAR data. Tree planting studies optimise placement in isolation. Nobody asks: *what does the route look like after the trees are planted?*
 
-TreeRoute combines both: simulation-grade UTCI, no LiDAR, globally accessible.
+Treeat combines both: simulation-grade UTCI, no LiDAR, globally accessible.
 
 ---
 
@@ -83,7 +82,7 @@ LEOPOLDSTADT_POLYGON = {
 
 ## Data sources
 
-TreeRoute uses five data layers. Four are fetched at runtime by the Infrared SDK. One requires a manual download.
+Treeat uses five data layers. Four are fetched at runtime by the Infrared SDK. One requires a manual download.
 
 ### Auto-fetched by Infrared SDK (no download needed)
 
@@ -103,7 +102,7 @@ TreeRoute uses five data layers. Four are fetched at runtime by the Infrared SDK
 - License: CC BY 4.0 — cite as *"Datenquelle: Stadt Wien – data.wien.gv.at"*
 - Size: 230,620 trees citywide
 
-**Key fields used by TreeRoute:**
+**Key fields used by Treeat:**
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -150,8 +149,8 @@ G = ox.graph_from_bbox(
 ### 1. Clone
 
 ```bash
-git clone https://github.com/martinasimoni/treeroute.git
-cd treeroute
+git clone https://github.com/martinasimoni-dotcom/Treeat.git
+cd Treeat
 ```
 
 ### 2. Download the Baumkataster
@@ -311,15 +310,24 @@ def score_street(segment, utci_grid, bounds):
 
 ## API endpoints
 
+Analysis and routing use an async job pattern: POST to start, poll for status, then fetch results.
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/utci` | Run UTCI simulation for the demo polygon, return heatmap grid |
-| `GET` | `/route?from=lng,lat&to=lng,lat` | Find coolest pedestrian route between two points |
-| `GET` | `/budget?trees=N` | Return top N planting locations by cooling ROI |
-| `GET` | `/species?location=lng,lat` | Rank species by cooling score minus allergy/VOC penalty |
+| `POST` | `/api/analyze` | Start UTCI/wind analysis for a drawn polygon — returns `job_id` |
+| `GET` | `/api/job/{id}` | Poll job status (`running` / `complete` / `error`) and progress % |
+| `GET` | `/api/job/{id}/results` | Fetch completed results — wind grid, heatmap PNG, planting GeoJSON |
+| `POST` | `/api/cool-route` | Start async cool-route calculation — returns `job_id` |
+| `GET` | `/api/cool-route-job/{id}` | Poll route job status |
+| `GET` | `/api/geocode?q=…` | Address → coordinates via OSM Nominatim |
+| `GET` | `/api/tree-species` | List all species with cooling scores and costs |
+| `GET` | `/api/suppliers` | List Austrian tree suppliers |
+| `GET` | `/api/street-species?wind=…&width=…` | Rank species for a specific location |
+| `GET` | `/api/planting-plan-pdf/{id}` | Generate PDF planting report for a completed analysis |
 | `GET` | `/api/saved` | List all persisted analyses (summary only) |
-| `GET` | `/api/saved/{id}` | Reload a full saved analysis — redraws map, re-enables budget + PDF |
+| `GET` | `/api/saved/{id}` | Reload a full saved analysis |
 | `DELETE` | `/api/saved/{id}` | Delete a saved analysis |
+| `GET` | `/` | Health check — `{"status": "ok"}` |
 
 ### Persistence (Day-2 requirement: data survives a refresh)
 
@@ -340,28 +348,32 @@ own columns so the list view stays light.
 ## Project structure
 
 ```
-treeroute/
+Treeat/
 ├── backend/
-│   ├── main.py              # FastAPI app
+│   ├── main.py              # FastAPI app — all routes, job management
 │   ├── db.py                # SQLAlchemy persistence — Neon Postgres / SQLite fallback
-│   ├── simulate.py          # Infrared SDK — UTCI + TCS runs
+│   ├── simulate.py          # Infrared SDK — UTCI + wind simulation wrapper
 │   ├── routing.py           # OSMnx graph + UTCI-weighted Dijkstra
 │   ├── budget.py            # Tree budget optimizer
-│   ├── species.py           # Species scoring — cooling benefit minus externalities
-│   ├── config.py            # POLYGON, CENTER, ZOOM constants
+│   ├── config.py            # POLYGON, CENTER, ZOOM constants (Leopoldstadt)
+│   ├── requirements.txt
+│   ├── railway.toml         # Railway deploy config
 │   ├── data/
-│   │   └── baumkataster_wien.geojson   # download manually — see above
+│   │   ├── tree_species.md       # 5 species with cooling scores and costs
+│   │   ├── suppliers.md          # 3 Austrian suppliers
+│   │   └── baumkataster_wien.geojson  # download manually — see above
 │   └── .env.example
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Map.jsx           # MapLibre GL — UTCI heatmap + route overlay
-│   │   │   ├── BudgetPanel.jsx   # Tree budget slider + planting map
-│   │   │   ├── RoutePanel.jsx    # A-to-B input + cool vs fast comparison
-│   │   │   └── SpeciesCard.jsx   # Species recommendation per location
-│   │   └── App.jsx
-│   └── package.json
-├── PRODUCT_REQUIREMENTS.md
+│   │   ├── App.jsx          # Main app — all UI, map, panels (single-file SPA)
+│   │   ├── App.css          # All styles
+│   │   └── main.jsx         # React entry point
+│   ├── package.json
+│   └── vite.config.js       # Dev proxy: /api → localhost:8000
+├── scripts/                     # Utility and debug scripts
+├── diagrams/                    # Architecture SVG diagrams
+├── cache/                       # JSON simulation snapshots (git-tracked)
+├── PRESENTATION_JOURNEY.md      # Deployment walkthrough (Day 1 → Day 2)
 └── README.md
 ```
 
@@ -399,7 +411,7 @@ course-suggested stack is Vercel + Render + Neon; Railway is the equivalent of R
 
 **Backend — Railway**
 1. [railway.com](https://railway.com) → New Project → Deploy from GitHub repo.
-2. Service → Settings → **Root Directory = `treeroute/backend`**. Railway reads `railway.toml` for the start command (`uvicorn main:app`) and the `/health` check.
+2. Service → Settings → **Root Directory = `backend`**. Railway reads `railway.toml` for the start command (`uvicorn main:app`) and the `/health` check.
 3. Variables: `INFRARED_API_KEY` (your key), `DATABASE_URL` (the Neon string), and `ALLOWED_ORIGINS` (fill in after the frontend deploys).
 4. Settings → Networking → Generate Domain → open the URL + `/health` → `{"status":"ok"}`.
 
@@ -408,7 +420,7 @@ course-suggested stack is Vercel + Render + Neon; Railway is the equivalent of R
 
 **Frontend — Vercel**
 1. [vercel.com](https://vercel.com) → Add New Project → import the repo.
-2. **Root Directory = `treeroute/frontend`** (auto-detects Vite).
+2. **Root Directory = `frontend`** (auto-detects Vite).
 3. Environment Variable `VITE_API_URL` = your Railway backend URL (Production + Preview).
 4. Deploy → you get `your-app.vercel.app`.
 
@@ -436,13 +448,13 @@ Built for the [Infrared.city SDK Hackathon](https://hackathon.infrared.city), Ma
 
 - Zhang et al. (2025) — *Ficus macrocarpa* (LAI 3.43) reduces PET by up to 4.7°C. Two-line 1:1 planting pattern optimal for street cooling.
 - Coutts & Crawford, Landscape Urban Plan (2022) — trees on treeless streets deliver 1.5–2× more cooling than adding to already-shaded streets.
-- ASU Cool Routes — first thermal routing tool; requires LiDAR. TreeRoute replicates the approach using OSM-level data via the Infrared SDK — globally accessible, no LiDAR.
+- ASU Cool Routes — first thermal routing tool; requires LiDAR. Treeat replicates the approach using OSM-level data via the Infrared SDK — globally accessible, no LiDAR.
 
 ---
 
 ## Disclaimer
 
-TreeRoute produces indicative thermal comfort analysis for urban planning support. It is not a certified environmental assessment and should not replace qualified microclimatic studies for planning submissions.
+Treeat produces indicative thermal comfort analysis for urban planning support. It is not a certified environmental assessment and should not replace qualified microclimatic studies for planning submissions.
 
 ---
 

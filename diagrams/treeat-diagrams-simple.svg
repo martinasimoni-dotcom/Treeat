@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960" height="1050" viewBox="0 0 960 1050" xmlns="http://www.w3.org/2000/svg"
+     font-family="Arial, Helvetica, sans-serif">
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- White background -->
+  <rect width="960" height="1050" fill="white"/>
+
+  <!-- colour key:
+       #4A90D9  blue   = frontend / browser
+       #5BA85A  green  = backend / server
+       #E8934A  orange = external services
+       #8B6BA8  purple = data / files
+       #1A1A2E  dark   = user
+  -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       DIAGRAM 1 — COMPONENT
+       ══════════════════════════════════════════════════════════ -->
+
+  <text x="30" y="30" font-size="10" fill="#9CA3AF" letter-spacing="2">COMPONENT DIAGRAM</text>
+
+  <!-- FRONTEND (blue) -->
+  <rect x="30" y="46" width="140" height="60" fill="#D6E8F7" stroke="#4A90D9" stroke-width="2"/>
+  <text x="100" y="71" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">FRONTEND</text>
+  <text x="100" y="87" text-anchor="middle" font-size="10" fill="#1a1a1a">(BROWSER)</text>
+
+  <!-- → REQUEST → Backend -->
+  <line x1="170" y1="72" x2="262" y2="72" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="216" y="65" text-anchor="middle" font-size="9" fill="#333">REQUEST</text>
+
+  <!-- ← RESULT ← Backend -->
+  <line x1="263" y1="88" x2="171" y2="88" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="216" y="103" text-anchor="middle" font-size="9" fill="#333">RESULT</text>
+
+  <!-- BACKEND (green) -->
+  <rect x="263" y="46" width="160" height="60" fill="#D4EDD4" stroke="#5BA85A" stroke-width="2"/>
+  <text x="343" y="71" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">BACKEND</text>
+  <text x="343" y="87" text-anchor="middle" font-size="10" fill="#1a1a1a">(SERVER + API)</text>
+
+  <!-- → API KEY → MapLibre -->
+  <line x1="423" y1="60" x2="519" y2="40" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="467" y="42" text-anchor="middle" font-size="9" fill="#333">API KEY</text>
+
+  <!-- → API KEY → Infrared SDK -->
+  <line x1="423" y1="74" x2="519" y2="74" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="471" y="67" text-anchor="middle" font-size="9" fill="#333">API KEY</text>
+
+  <!-- → QUERY → OSMnx -->
+  <line x1="423" y1="86" x2="519" y2="108" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="459" y="106" text-anchor="middle" font-size="9" fill="#333">QUERY</text>
+
+  <!-- → SAVE → cache -->
+  <line x1="423" y1="96" x2="519" y2="148" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="445" y="140" text-anchor="middle" font-size="9" fill="#333">SAVE</text>
+
+  <!-- MAPLIBRE MAP (orange = external) -->
+  <rect x="520" y="18" width="180" height="46" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="610" y="38" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">MAPLIBRE MAP</text>
+  <text x="610" y="54" text-anchor="middle" font-size="9" fill="#1a1a1a">+ CARTO TILES</text>
+
+  <!-- → OVERLAY → heatmap box -->
+  <line x1="700" y1="38" x2="750" y2="38" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="725" y="31" text-anchor="middle" font-size="9" fill="#333">OVERLAY</text>
+
+  <!-- WIND HEATMAP OVERLAY (blue = frontend result) -->
+  <rect x="751" y="14" width="185" height="54" fill="#D6E8F7" stroke="#4A90D9" stroke-width="2"/>
+  <text x="843" y="35" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">WIND HEATMAP</text>
+  <text x="843" y="50" text-anchor="middle" font-size="10" fill="#1a1a1a">OVERLAY ON MAP</text>
+  <text x="843" y="62" text-anchor="middle" font-size="8" fill="#555">(base64 PNG)</text>
+
+  <!-- INFRARED SDK (orange = external) -->
+  <rect x="520" y="52" width="180" height="46" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="610" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">INFRARED SDK</text>
+  <text x="610" y="88" text-anchor="middle" font-size="9" fill="#1a1a1a">UTCI + WIND SIM</text>
+
+  <!-- Infrared → OSMnx -->
+  <line x1="700" y1="80" x2="750" y2="104" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="720" y="87" text-anchor="middle" font-size="9" fill="#333">SAMPLE</text>
+
+  <!-- OSMnx (orange = external) -->
+  <rect x="751" y="88" width="185" height="46" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="843" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">OSMnx</text>
+  <text x="843" y="124" text-anchor="middle" font-size="9" fill="#1a1a1a">STREET GRAPH (OSM)</text>
+
+  <!-- ANALYSIS TILES cached (purple = data) -->
+  <rect x="520" y="140" width="180" height="46" fill="#E3D8F0" stroke="#8B6BA8" stroke-width="2"/>
+  <text x="610" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ANALYSIS TILES</text>
+  <text x="610" y="176" text-anchor="middle" font-size="9" fill="#1a1a1a">cache/ (JSON)</text>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       DIAGRAM 2 — USER FLOW
+       ══════════════════════════════════════════════════════════ -->
+
+  <text x="30" y="238" font-size="10" fill="#9CA3AF" letter-spacing="2">USER FLOW DIAGRAM</text>
+
+  <!-- 1 OPEN -->
+  <rect x="30"  y="250" width="100" height="58" fill="#1A1A2E" stroke="#1A1A2E" stroke-width="2"/>
+  <text x="80"  y="275" text-anchor="middle" font-size="11" font-weight="bold" fill="white">OPEN</text>
+  <text x="80"  y="291" text-anchor="middle" font-size="10" fill="white">APP</text>
+
+  <line x1="130" y1="279" x2="158" y2="279" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 2 DRAW POLYGON -->
+  <rect x="159" y="250" width="130" height="58" fill="#D6E8F7" stroke="#4A90D9" stroke-width="2"/>
+  <text x="224" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">DRAW</text>
+  <text x="224" y="289" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">POLYGON</text>
+  <text x="224" y="303" text-anchor="middle" font-size="8" fill="#555">on Leopoldstadt</text>
+
+  <line x1="289" y1="279" x2="317" y2="279" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="303" y="271" text-anchor="middle" font-size="8" fill="#555">analysis</text>
+  <text x="303" y="283" text-anchor="middle" font-size="8" fill="#555">runs</text>
+
+  <!-- 3 GET WIND HEATMAP -->
+  <rect x="318" y="250" width="148" height="58" fill="#D6E8F7" stroke="#4A90D9" stroke-width="2"/>
+  <text x="392" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">GET WIND</text>
+  <text x="392" y="289" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">HEATMAP</text>
+  <text x="392" y="303" text-anchor="middle" font-size="8" fill="#555">on drawn area</text>
+
+  <line x1="466" y1="279" x2="494" y2="279" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 4 SEE PLANTING RECS -->
+  <rect x="495" y="250" width="185" height="58" fill="#D4EDD4" stroke="#5BA85A" stroke-width="2"/>
+  <text x="587" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">SEE PLANTING</text>
+  <text x="587" y="286" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">RECOMMENDATIONS</text>
+  <text x="587" y="302" text-anchor="middle" font-size="8" fill="#555">top 15 streets + species + cost</text>
+
+  <line x1="680" y1="279" x2="708" y2="279" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <!-- 5 DOWNLOAD PDF -->
+  <rect x="709" y="250" width="130" height="58" fill="#E3D8F0" stroke="#8B6BA8" stroke-width="2"/>
+  <text x="774" y="273" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">DOWNLOAD</text>
+  <text x="774" y="289" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">PDF PLAN</text>
+  <text x="774" y="303" text-anchor="middle" font-size="8" fill="#555">planting report</text>
+
+  <!-- optional cool route branch -->
+  <line x1="224" y1="308" x2="224" y2="345" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="230" y="335" font-size="8" fill="#9CA3AF">or: cool route</text>
+
+  <rect x="159" y="346" width="130" height="55" fill="#FAE3CC" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="224" y="366" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">PICK 2 POINTS</text>
+  <text x="224" y="381" text-anchor="middle" font-size="10" fill="#1a1a1a">ON MAP</text>
+  <text x="224" y="393" text-anchor="middle" font-size="8" fill="#555">start + end</text>
+
+  <line x1="289" y1="373" x2="317" y2="373" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#a)"/>
+
+  <rect x="318" y="346" width="148" height="55" fill="#FAE3CC" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="392" y="366" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">FASTEST ROUTE</text>
+  <text x="392" y="381" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">vs COOLEST ROUTE</text>
+  <text x="392" y="393" text-anchor="middle" font-size="8" fill="#555">distance vs wind exposure</text>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       DIAGRAM 3 — DATA FLOW
+       ══════════════════════════════════════════════════════════ -->
+
+  <text x="30" y="442" font-size="10" fill="#9CA3AF" letter-spacing="2">DATA FLOW DIAGRAM</text>
+
+  <!-- USER (dark circle) -->
+  <ellipse cx="80" cy="570" rx="60" ry="40" fill="#1A1A2E" stroke="#1A1A2E" stroke-width="1.5"/>
+  <text x="80" y="567" text-anchor="middle" font-size="12" font-weight="bold" fill="white">USER</text>
+  <text x="80" y="582" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">Vienna</text>
+
+  <!-- RUN → Frontend -->
+  <line x1="140" y1="554" x2="218" y2="538" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="172" y="538" text-anchor="middle" font-size="9" fill="#333">RUN</text>
+
+  <!-- ← WIND HEATMAP + RECS ← Frontend -->
+  <line x1="219" y1="578" x2="141" y2="594" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="152" y="614" text-anchor="middle" font-size="9" fill="#333">WIND HEATMAP</text>
+  <text x="152" y="626" text-anchor="middle" font-size="9" fill="#333">+ PLANTING RECS</text>
+
+  <!-- FRONTEND (blue) -->
+  <rect x="220" y="514" width="160" height="58" fill="#D6E8F7" stroke="#4A90D9" stroke-width="2"/>
+  <text x="300" y="539" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">FRONTEND</text>
+  <text x="300" y="555" text-anchor="middle" font-size="9" fill="#1a1a1a">React + MapLibre · :5173</text>
+
+  <!-- REQUEST → Backend -->
+  <line x1="380" y1="535" x2="448" y2="535" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="414" y="527" text-anchor="middle" font-size="9" fill="#333">REQUEST</text>
+
+  <!-- ← RESULT ← Backend -->
+  <line x1="449" y1="551" x2="381" y2="551" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="414" y="566" text-anchor="middle" font-size="9" fill="#333">RESULT</text>
+
+  <!-- BACKEND (green) -->
+  <rect x="450" y="514" width="160" height="58" fill="#D4EDD4" stroke="#5BA85A" stroke-width="2"/>
+  <text x="530" y="539" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">BACKEND</text>
+  <text x="530" y="555" text-anchor="middle" font-size="9" fill="#1a1a1a">FastAPI · :8000</text>
+
+  <!-- → API KEY → Infrared -->
+  <line x1="610" y1="526" x2="688" y2="502" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="642" y="506" text-anchor="middle" font-size="9" fill="#333">API KEY</text>
+
+  <!-- → API KEY → Nominatim -->
+  <line x1="610" y1="540" x2="688" y2="556" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="644" y="542" text-anchor="middle" font-size="9" fill="#333">API KEY</text>
+
+  <!-- → QUERY → OSMnx -->
+  <line x1="610" y1="554" x2="688" y2="612" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="637" y="600" text-anchor="middle" font-size="9" fill="#333">QUERY</text>
+
+  <!-- → SAVE → cache -->
+  <line x1="530" y1="572" x2="530" y2="636" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="538" y="610" font-size="9" fill="#333">SAVE</text>
+
+  <!-- reads local file -->
+  <line x1="450" y1="552" x2="382" y2="650" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#a)"/>
+  <text x="395" y="625" text-anchor="middle" font-size="8" fill="#9CA3AF">reads local</text>
+
+  <!-- INFRARED SDK (orange) -->
+  <rect x="689" y="474" width="240" height="50" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="809" y="496" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">INFRARED SDK</text>
+  <text x="809" y="512" text-anchor="middle" font-size="9" fill="#1a1a1a">UTCI + WIND SIM · infrared.city</text>
+
+  <!-- OSM NOMINATIM (orange) -->
+  <rect x="689" y="532" width="240" height="50" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="809" y="553" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">OSM NOMINATIM</text>
+  <text x="809" y="569" text-anchor="middle" font-size="9" fill="#1a1a1a">GEOCODING · nominatim.osm.org</text>
+
+  <!-- OSMnx (orange) -->
+  <rect x="689" y="590" width="240" height="50" fill="#FAE3CC" stroke="#E8934A" stroke-width="2"/>
+  <text x="809" y="611" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">OSMnx</text>
+  <text x="809" y="627" text-anchor="middle" font-size="9" fill="#1a1a1a">STREET GRAPH · overpass-api.de</text>
+
+  <!-- ANALYSIS TILES / cache (purple) -->
+  <rect x="450" y="637" width="160" height="50" fill="#E3D8F0" stroke="#8B6BA8" stroke-width="2"/>
+  <text x="530" y="658" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ANALYSIS TILES</text>
+  <text x="530" y="674" text-anchor="middle" font-size="9" fill="#1a1a1a">cache/ (JSON)</text>
+
+  <!-- Baumkataster (purple) -->
+  <rect x="220" y="650" width="160" height="50" fill="#E3D8F0" stroke="#8B6BA8" stroke-width="2"/>
+  <text x="300" y="671" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">BAUMKATASTER</text>
+  <text x="300" y="686" text-anchor="middle" font-size="9" fill="#1a1a1a">GeoJSON (local file)</text>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       LEGEND
+       ══════════════════════════════════════════════════════════ -->
+
+  <line x1="30" y1="752" x2="920" y2="752" stroke="#E5E7EB" stroke-width="1"/>
+
+  <text x="30" y="778" font-size="10" fill="#9CA3AF" letter-spacing="2">LEGEND</text>
+
+  <rect x="30"  y="790" width="20" height="16" fill="#1A1A2E" stroke="#1A1A2E" stroke-width="1.5"/>
+  <text x="56"  y="803" font-size="10" fill="#333">User</text>
+
+  <rect x="130" y="790" width="20" height="16" fill="#D6E8F7" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="156" y="803" font-size="10" fill="#333">Frontend (browser)</text>
+
+  <rect x="320" y="790" width="20" height="16" fill="#D4EDD4" stroke="#5BA85A" stroke-width="1.5"/>
+  <text x="346" y="803" font-size="10" fill="#333">Backend (server)</text>
+
+  <rect x="510" y="790" width="20" height="16" fill="#FAE3CC" stroke="#E8934A" stroke-width="1.5"/>
+  <text x="536" y="803" font-size="10" fill="#333">External services</text>
+
+  <rect x="700" y="790" width="20" height="16" fill="#E3D8F0" stroke="#8B6BA8" stroke-width="1.5"/>
+  <text x="726" y="803" font-size="10" fill="#333">Data / local files</text>
+
+  <line x1="30"  y1="828" x2="56"  y2="828" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="64"   y="832" font-size="10" fill="#333">request / data flow</text>
+
+  <line x1="230" y1="828" x2="256" y2="828" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#a)"/>
+  <text x="264"  y="832" font-size="10" fill="#333">optional / read-only access</text>
+
+  <text x="30" y="870" font-size="9" fill="#C0C0C0">Treeat · Urban Thermal Comfort Routing · Vienna Leopoldstadt · 2026</text>
+</svg>

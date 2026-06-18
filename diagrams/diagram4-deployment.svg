@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="560" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <marker id="arr-b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+    </marker>
+    <marker id="arr-o" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#E8934A"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1A1A2E" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="560" fill="#FAFAF8"/>
+
+  <!-- Title -->
+  <text x="30" y="30" font-size="11" fill="#9CA3AF" letter-spacing="2">DIAGRAM 4 — DEPLOYMENT</text>
+  <text x="30" y="54" font-size="22" fill="#1A1A2E" font-weight="bold">Where does each part run?</text>
+
+  <!-- ── BROWSER ZONE ── -->
+  <rect x="16" y="78" width="248" height="350" rx="14" fill="#EEF5FD" stroke="#C3DCF5" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="140" y="101" text-anchor="middle" font-size="9" fill="#4A90D9" letter-spacing="2" font-weight="bold">☁  USER BROWSER</text>
+
+  <!-- React SPA -->
+  <rect x="30" y="112" width="220" height="78" rx="8" fill="white" stroke="#4A90D9" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="140" y="132" text-anchor="middle" font-size="10" fill="#4A90D9" font-weight="bold">React SPA</text>
+  <text x="140" y="149" text-anchor="middle" font-size="9" fill="#374151">React 18 + Vite</text>
+  <text x="140" y="164" text-anchor="middle" font-size="9" fill="#374151">MapLibre GL · Mapbox Draw</text>
+  <text x="140" y="179" text-anchor="middle" font-size="8" fill="#6B7280">http://localhost:5173 (dev)</text>
+
+  <!-- dist/ -->
+  <rect x="30" y="204" width="220" height="58" rx="8" fill="#F0F9FF" stroke="#93C5FD" stroke-width="1.5"/>
+  <text x="140" y="224" text-anchor="middle" font-size="9" fill="#2563EB" font-weight="bold">dist/ (production build)</text>
+  <text x="140" y="240" text-anchor="middle" font-size="8" fill="#6B7280">npm run build → static assets</text>
+  <text x="140" y="254" text-anchor="middle" font-size="8" fill="#9CA3AF">served by any static host</text>
+
+  <!-- CARTO tiles -->
+  <rect x="30" y="276" width="220" height="52" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="140" y="296" text-anchor="middle" font-size="9" fill="#475569" font-weight="bold">CARTO basemap tiles</text>
+  <text x="140" y="311" text-anchor="middle" font-size="8" fill="#6B7280">raster tiles (OpenStreetMap)</text>
+  <text x="140" y="323" text-anchor="middle" font-size="8" fill="#9CA3AF">MapTiler 3D @ zoom ≥ 12</text>
+
+  <!-- Vite proxy note -->
+  <rect x="30" y="342" width="220" height="52" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="140" y="362" text-anchor="middle" font-size="9" fill="#166534" font-weight="bold">Vite dev proxy</text>
+  <text x="140" y="378" text-anchor="middle" font-size="8" fill="#374151">/api/* → localhost:8000</text>
+  <text x="140" y="391" text-anchor="middle" font-size="8" fill="#9CA3AF">avoids CORS in dev mode</text>
+
+  <!-- ── SERVER ZONE ── -->
+  <rect x="316" y="78" width="258" height="420" rx="14" fill="#EEFAEE" stroke="#A7D9A6" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="445" y="101" text-anchor="middle" font-size="9" fill="#5BA85A" letter-spacing="2" font-weight="bold">⬛  LOCAL SERVER</text>
+
+  <!-- FastAPI -->
+  <rect x="330" y="112" width="230" height="80" rx="8" fill="white" stroke="#5BA85A" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="445" y="132" text-anchor="middle" font-size="10" fill="#5BA85A" font-weight="bold">FastAPI + Uvicorn</text>
+  <text x="445" y="149" text-anchor="middle" font-size="9" fill="#374151">Python 3.11+ · main.py (1097 lines)</text>
+  <text x="445" y="165" text-anchor="middle" font-size="9" fill="#374151">routing · simulation · PDF gen</text>
+  <text x="445" y="180" text-anchor="middle" font-size="8" fill="#6B7280">http://localhost:8000</text>
+
+  <!-- Python venv -->
+  <rect x="330" y="206" width="230" height="52" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <text x="445" y="225" text-anchor="middle" font-size="9" fill="#166534" font-weight="bold">Python venv</text>
+  <text x="445" y="241" text-anchor="middle" font-size="8" fill="#6B7280">infrared-sdk · fastapi · osmnx</text>
+  <text x="445" y="254" text-anchor="middle" font-size="8" fill="#9CA3AF">geopandas · networkx · reportlab</text>
+
+  <!-- cache/ -->
+  <rect x="330" y="272" width="230" height="48" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="445" y="292" text-anchor="middle" font-size="9" fill="#374151" font-weight="bold">cache/ folder</text>
+  <text x="445" y="308" text-anchor="middle" font-size="8" fill="#6B7280">JSON simulation snapshots</text>
+  <text x="445" y="320" text-anchor="middle" font-size="8" fill="#9CA3AF">8 cached entries (git-tracked)</text>
+
+  <!-- Baumkataster local -->
+  <rect x="330" y="334" width="230" height="52" rx="8" fill="#EDE9F5" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="445" y="354" text-anchor="middle" font-size="9" fill="#5B21B6" font-weight="bold">baumkataster_wien.geojson</text>
+  <text x="445" y="370" text-anchor="middle" font-size="8" fill="#6B7280">230,620 trees · local file</text>
+  <text x="445" y="382" text-anchor="middle" font-size="8" fill="#9CA3AF">manual download required</text>
+
+  <!-- data files -->
+  <rect x="330" y="400" width="230" height="48" rx="8" fill="#EDE9F5" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="445" y="419" text-anchor="middle" font-size="9" fill="#5B21B6" font-weight="bold">data/tree_species.md</text>
+  <text x="445" y="435" text-anchor="middle" font-size="8" fill="#6B7280">data/suppliers.md</text>
+  <text x="445" y="447" text-anchor="middle" font-size="8" fill="#9CA3AF">parsed at runtime via regex</text>
+
+  <!-- in-memory note -->
+  <rect x="330" y="462" width="230" height="28" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="445" y="480" text-anchor="middle" font-size="8" fill="#92400E" font-weight="bold">jobs{} in-memory · no database</text>
+
+  <!-- ── EXTERNAL APIs ZONE ── -->
+  <rect x="626" y="78" width="258" height="420" rx="14" fill="#FEF3E8" stroke="#F0C08A" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="755" y="101" text-anchor="middle" font-size="9" fill="#E8934A" letter-spacing="2" font-weight="bold">☁  EXTERNAL APIS</text>
+
+  <!-- Infrared API -->
+  <rect x="640" y="112" width="230" height="80" rx="8" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="755" y="132" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">Infrared API</text>
+  <text x="755" y="149" text-anchor="middle" font-size="9" fill="#374151">hackathon.infrared.city</text>
+  <text x="755" y="165" text-anchor="middle" font-size="9" fill="#374151">UTCI · Wind · Solar · SVF</text>
+  <text x="755" y="180" text-anchor="middle" font-size="8" fill="#6B7280">INFRARED_API_KEY in .env</text>
+
+  <!-- Nominatim -->
+  <rect x="640" y="206" width="230" height="60" rx="8" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="755" y="226" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">OSM Nominatim</text>
+  <text x="755" y="243" text-anchor="middle" font-size="9" fill="#374151">geocoding (free, rate-limited)</text>
+  <text x="755" y="259" text-anchor="middle" font-size="8" fill="#6B7280">nominatim.openstreetmap.org</text>
+
+  <!-- OSMnx / Overpass -->
+  <rect x="640" y="280" width="230" height="60" rx="8" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="755" y="300" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">OpenStreetMap</text>
+  <text x="755" y="316" text-anchor="middle" font-size="9" fill="#374151">OSMnx pedestrian graph</text>
+  <text x="755" y="330" text-anchor="middle" font-size="8" fill="#6B7280">overpass-api.de</text>
+
+  <!-- TMYx -->
+  <rect x="640" y="354" width="230" height="60" rx="8" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="755" y="374" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">TMYx Weather Data</text>
+  <text x="755" y="390" text-anchor="middle" font-size="9" fill="#374151">Vienna Innere Stadt station</text>
+  <text x="755" y="405" text-anchor="middle" font-size="8" fill="#6B7280">via Infrared SDK</text>
+
+  <!-- Stadt Wien -->
+  <rect x="640" y="428" width="230" height="62" rx="8" fill="#F8F5FF" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="755" y="448" text-anchor="middle" font-size="10" fill="#5B21B6" font-weight="bold">Stadt Wien Open Data</text>
+  <text x="755" y="464" text-anchor="middle" font-size="8" fill="#6B7280">Baumkataster download (CC BY 4.0)</text>
+  <text x="755" y="479" text-anchor="middle" font-size="8" fill="#9CA3AF">one-time manual download</text>
+
+  <!-- ── ARROWS ── -->
+
+  <!-- Browser ↔ Server: HTTP REST -->
+  <path d="M264,148 L328,148" fill="none" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-b)"/>
+  <rect x="266" y="133" width="58" height="16" rx="3" fill="#EEF5FD"/>
+  <text x="295" y="145" text-anchor="middle" font-size="8" fill="#4A90D9">HTTP REST</text>
+
+  <path d="M330,166 L266,166" fill="none" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-b)"/>
+  <rect x="266" y="166" width="56" height="14" rx="3" fill="#EEFAEE"/>
+  <text x="294" y="177" text-anchor="middle" font-size="7" fill="#5BA85A">JSON / PNG</text>
+
+  <!-- Server → Infrared SDK -->
+  <path d="M560,148 L638,148" fill="none" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr-o)"/>
+  <rect x="562" y="133" width="72" height="16" rx="3" fill="#FEF3E8"/>
+  <text x="598" y="145" text-anchor="middle" font-size="8" fill="#E8934A">HTTPS + key</text>
+
+  <!-- Server → Nominatim -->
+  <path d="M560,234 L638,234" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-o)"/>
+  <rect x="562" y="219" width="72" height="16" rx="3" fill="#FEF3E8"/>
+  <text x="598" y="231" text-anchor="middle" font-size="8" fill="#E8934A">HTTPS GET</text>
+
+  <!-- Server → OSMnx/Overpass -->
+  <path d="M560,308 L638,308" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-o)"/>
+  <rect x="562" y="293" width="72" height="16" rx="3" fill="#FEF3E8"/>
+  <text x="598" y="305" text-anchor="middle" font-size="8" fill="#E8934A">Overpass API</text>
+
+  <!-- Legend -->
+  <rect x="0" y="530" width="900" height="30" fill="#F3F4F6"/>
+  <circle cx="24" cy="545" r="5" fill="#4A90D9"/>
+  <text x="34" y="549" font-size="8" fill="#374151">Frontend / Browser</text>
+  <circle cx="160" cy="545" r="5" fill="#5BA85A"/>
+  <text x="170" y="549" font-size="8" fill="#374151">Backend / Server</text>
+  <circle cx="290" cy="545" r="5" fill="#E8934A"/>
+  <text x="300" y="549" font-size="8" fill="#374151">External APIs</text>
+  <circle cx="400" cy="545" r="5" fill="#8B6BA8"/>
+  <text x="410" y="549" font-size="8" fill="#374151">Data / Files</text>
+  <rect x="516" y="538" width="10" height="10" rx="2" fill="none" stroke="#FCD34D" stroke-width="1.5"/>
+  <text x="530" y="549" font-size="8" fill="#374151">In-memory (no DB)</text>
+  <text x="880" y="549" text-anchor="end" font-size="8" fill="#9CA3AF">Treeat · Architecture · 2026</text>
+</svg>
