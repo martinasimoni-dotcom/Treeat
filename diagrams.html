@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treeat — Architecture Diagrams</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:    #4A90D9;
+    --blue-lt: #D6E8F7;
+    --green:   #5BA85A;
+    --green-lt:#D4EDD4;
+    --orange:  #E8934A;
+    --orange-lt:#FAE3CC;
+    --purple:  #8B6BA8;
+    --purple-lt:#E3D8F0;
+    --ink:     #1A1A2E;
+    --muted:   #6B7280;
+    --rule:    #E5E7EB;
+    --paper:   #FAFAF8;
+    --white:   #FFFFFF;
+    --shadow:  0 2px 12px rgba(26,26,46,0.08);
+    --shadow-lg: 0 8px 32px rgba(26,26,46,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 24px,
+      rgba(255,255,255,0.03) 24px,
+      rgba(255,255,255,0.03) 25px
+    );
+  }
+  .header-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  header h1 em {
+    font-style: italic;
+    color: #a8c5e8;
+  }
+  .header-sub {
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    max-width: 480px;
+  }
+  .header-badges {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .badge-blue   { background: rgba(74,144,217,0.2); color: #7ab8eb; border: 1px solid rgba(74,144,217,0.3); }
+  .badge-green  { background: rgba(91,168,90,0.2);  color: #8ed08d; border: 1px solid rgba(91,168,90,0.3); }
+  .badge-orange { background: rgba(232,147,74,0.2); color: #f0b07a; border: 1px solid rgba(232,147,74,0.3); }
+  .badge-purple { background: rgba(139,107,168,0.2);color: #b89fd0; border: 1px solid rgba(139,107,168,0.3); }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 48px;
+    display: flex; gap: 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  nav a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav a:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 64px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .diagram-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .diagram-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .diagram-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .diagram-wrap {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    overflow-x: auto;
+  }
+
+  svg { display: block; overflow: visible; }
+
+  /* ── LEGEND ── */
+  footer {
+    background: var(--ink);
+    padding: 40px 48px;
+    color: rgba(255,255,255,0.6);
+  }
+  .legend-title {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+  .legend-items {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px;
+  }
+  .legend-swatch {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .footer-note {
+    margin-top: 24px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px;
+  }
+
+  /* ── sequence table ── */
+  .seq-note {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 16px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Architecture Overview · Vienna Urban Heat</div>
+  <h1>Treeat —<br><em>Architecture Diagrams</em></h1>
+  <p class="header-sub">Urban thermal comfort routing & tree planting optimizer. Four views of the system: components, sequence, data, deployment.</p>
+  <div class="header-badges">
+    <span class="badge badge-blue">React 18 + MapLibre</span>
+    <span class="badge badge-green">FastAPI + Python</span>
+    <span class="badge badge-orange">Infrared SDK</span>
+    <span class="badge badge-purple">OSMnx + GeoJSON</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#d1">① Component</a>
+  <a href="#d2">② Sequence</a>
+  <a href="#d3">③ Entity</a>
+  <a href="#d4">④ Deployment</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- DIAGRAM 1 — COMPONENT                                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="d1">
+  <div class="diagram-label">Diagram 1</div>
+  <div class="diagram-title">What are the parts?</div>
+  <div class="diagram-desc">System components and their connections.</div>
+
+  <div class="diagram-wrap">
+    <svg width="860" height="420" viewBox="0 0 860 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+        </marker>
+        <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+        </marker>
+        <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+        </marker>
+        <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+          <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1A1A2E" flood-opacity="0.08"/>
+        </filter>
+      </defs>
+
+      <!-- BROWSER ZONE -->
+      <rect x="10" y="20" width="200" height="380" rx="12" fill="#EEF5FD" stroke="#C3DCF5" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="110" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#4A90D9" letter-spacing="2" font-weight="500">BROWSER</text>
+
+      <!-- Frontend box -->
+      <rect x="30" y="56" width="160" height="80" rx="10" fill="#fff" stroke="#4A90D9" stroke-width="2" filter="url(#shadow)"/>
+      <rect x="30" y="56" width="160" height="24" rx="10" fill="#4A90D9"/>
+      <rect x="30" y="68" width="160" height="12" rx="0" fill="#4A90D9"/>
+      <text x="110" y="73" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Frontend</text>
+      <text x="110" y="98" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">React 18 + Vite</text>
+      <text x="110" y="113" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">MapLibre GL · Draw</text>
+      <text x="110" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">:5173 (dev)</text>
+
+      <!-- Map tiles note -->
+      <rect x="30" y="160" width="160" height="50" rx="8" fill="#F0F9FF" stroke="#93C5FD" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="110" y="181" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3B82F6">CARTO tiles</text>
+      <text x="110" y="196" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">basemap raster</text>
+      <text x="110" y="209" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">+ MapTiler 3D bldgs</text>
+
+      <!-- MapLibre → tiles arrow (internal) -->
+      <line x1="110" y1="136" x2="110" y2="158" stroke="#93C5FD" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
+
+      <!-- SERVER ZONE -->
+      <rect x="260" y="20" width="220" height="380" rx="12" fill="#EEFAEE" stroke="#A7D9A6" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="370" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5BA85A" letter-spacing="2" font-weight="500">SERVER</text>
+
+      <!-- Backend box -->
+      <rect x="280" y="56" width="180" height="80" rx="10" fill="#fff" stroke="#5BA85A" stroke-width="2" filter="url(#shadow)"/>
+      <rect x="280" y="56" width="180" height="24" rx="10" fill="#5BA85A"/>
+      <rect x="280" y="68" width="180" height="12" rx="0" fill="#5BA85A"/>
+      <text x="370" y="73" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Backend</text>
+      <text x="370" y="98" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">FastAPI + Uvicorn</text>
+      <text x="370" y="113" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">Python 3.11+</text>
+      <text x="370" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">holds INFRARED_API_KEY</text>
+
+      <!-- Baumkataster -->
+      <rect x="280" y="156" width="180" height="48" rx="8" fill="#fff" stroke="#8B6BA8" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="370" y="177" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8B6BA8" font-weight="500">Baumkataster GeoJSON</text>
+      <text x="370" y="192" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">230,620 public trees</text>
+      <text x="370" y="204" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">local file · CC BY 4.0</text>
+
+      <!-- ReportLab -->
+      <rect x="280" y="220" width="180" height="48" rx="8" fill="#fff" stroke="#8B6BA8" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="370" y="241" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8B6BA8" font-weight="500">ReportLab</text>
+      <text x="370" y="256" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">PDF planting plan</text>
+      <text x="370" y="268" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">+ WeasyPrint HTML→PDF</text>
+
+      <!-- backend reads file arrow -->
+      <line x1="370" y1="136" x2="370" y2="154" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+      <!-- backend uses reportlab arrow -->
+      <line x1="370" y1="204" x2="370" y2="218" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+      <!-- EXTERNAL ZONE -->
+      <rect x="540" y="20" width="300" height="380" rx="12" fill="#FEF3E8" stroke="#F0C08A" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="690" y="44" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#E8934A" letter-spacing="2" font-weight="500">EXTERNAL SERVICES</text>
+
+      <!-- Infrared SDK -->
+      <rect x="560" y="56" width="260" height="80" rx="10" fill="#fff" stroke="#E8934A" stroke-width="2" filter="url(#shadow)"/>
+      <rect x="560" y="56" width="260" height="24" rx="10" fill="#E8934A"/>
+      <rect x="560" y="68" width="260" height="12" rx="0" fill="#E8934A"/>
+      <text x="690" y="73" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Infrared SDK → API</text>
+      <text x="690" y="98" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">UTCI / Wind simulation</text>
+      <text x="690" y="113" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">Buildings · Vegetation · Weather</text>
+      <text x="690" y="128" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">hackathon.infrared.city</text>
+
+      <!-- OSMnx -->
+      <rect x="560" y="156" width="260" height="64" rx="10" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="690" y="177" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">OSMnx → OpenStreetMap</text>
+      <text x="690" y="193" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">pedestrian graph · Dijkstra routing</text>
+      <text x="690" y="208" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#6B7280">street network · building data</text>
+
+      <!-- Nominatim -->
+      <rect x="560" y="236" width="260" height="52" rx="10" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="690" y="257" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">OSM Nominatim</text>
+      <text x="690" y="273" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">geocoding · address → coords</text>
+      <text x="690" y="283" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">nominatim.openstreetmap.org</text>
+
+      <!-- ── ARROWS ── -->
+
+      <!-- Frontend → Backend: HTTP/REST -->
+      <path d="M190,96 C225,96 245,96 278,96" fill="none" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-blue)"/>
+      <rect x="196" y="82" width="76" height="16" rx="4" fill="#EEF5FD"/>
+      <text x="234" y="94" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">HTTP / REST</text>
+
+      <!-- Backend → Frontend response (dashed) -->
+      <path d="M280,112 C245,112 225,112 192,112" fill="none" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+      <rect x="196" y="112" width="76" height="14" rx="3" fill="#EEF5FD"/>
+      <text x="234" y="123" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">JSON response</text>
+
+      <!-- Backend → Infrared SDK -->
+      <path d="M460,80 C500,80 520,80 558,80" fill="none" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr-green)"/>
+      <rect x="464" y="66" width="86" height="16" rx="4" fill="#EEFAEE"/>
+      <text x="507" y="78" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">SDK call + key</text>
+
+      <!-- Infrared SDK → Backend response -->
+      <path d="M560,104 C522,104 500,104 462,104" fill="none" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+      <rect x="464" y="104" width="86" height="14" rx="3" fill="#FEF3E8"/>
+      <text x="507" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#E8934A">wind grid PNG</text>
+
+      <!-- Backend → OSMnx -->
+      <path d="M460,188 C500,188 520,188 558,188" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+      <rect x="464" y="174" width="86" height="16" rx="4" fill="#EEFAEE"/>
+      <text x="507" y="186" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">OSM query</text>
+
+      <!-- Backend → Nominatim -->
+      <path d="M460,256 C500,256 520,260 558,260" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+      <rect x="464" y="242" width="86" height="16" rx="4" fill="#EEFAEE"/>
+      <text x="507" y="254" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">geocode req</text>
+
+      <!-- In-memory note -->
+      <rect x="280" y="290" width="180" height="36" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+      <text x="370" y="308" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#92400E">⚠ In-memory job store only</text>
+      <text x="370" y="320" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#92400E">clears on restart · no DB</text>
+
+      <!-- cache folder -->
+      <rect x="280" y="336" width="180" height="36" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+      <text x="370" y="354" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#374151">cache/ folder</text>
+      <text x="370" y="366" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">JSON simulation snapshots</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- DIAGRAM 2 — SEQUENCE                                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="d2">
+  <div class="diagram-label">Diagram 2</div>
+  <div class="diagram-title">What happens, in what order?</div>
+  <div class="diagram-desc">Run Analysis flow — from polygon draw to heatmap display.</div>
+
+  <div class="diagram-wrap">
+    <svg width="860" height="560" viewBox="0 0 860 560" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+        </marker>
+        <marker id="arr2b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+        </marker>
+        <marker id="arr2g" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+        </marker>
+        <marker id="arr2o" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#E8934A"/>
+        </marker>
+        <marker id="arr2p" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#8B6BA8"/>
+        </marker>
+      </defs>
+
+      <!-- Actor columns: x positions for center lines -->
+      <!-- User=80, Frontend=230, Backend=420, Infrared=610, OSMnx=790 -->
+
+      <!-- Actor headers -->
+      <!-- User -->
+      <rect x="30" y="10" width="100" height="52" rx="8" fill="#1A1A2E" filter="url(#shadow)"/>
+      <text x="80" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">User</text>
+      <text x="80" y="52" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(255,255,255,0.5)">human</text>
+
+      <!-- Frontend -->
+      <rect x="170" y="10" width="120" height="52" rx="8" fill="#4A90D9" filter="url(#shadow)"/>
+      <text x="230" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Frontend</text>
+      <text x="230" y="52" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(255,255,255,0.7)">React SPA</text>
+
+      <!-- Backend -->
+      <rect x="355" y="10" width="130" height="52" rx="8" fill="#5BA85A" filter="url(#shadow)"/>
+      <text x="420" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Backend</text>
+      <text x="420" y="52" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(255,255,255,0.7)">FastAPI</text>
+
+      <!-- Infrared SDK -->
+      <rect x="545" y="10" width="130" height="52" rx="8" fill="#E8934A" filter="url(#shadow)"/>
+      <text x="610" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Infrared SDK</text>
+      <text x="610" y="52" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(255,255,255,0.7)">API call</text>
+
+      <!-- OSMnx -->
+      <rect x="730" y="10" width="110" height="52" rx="8" fill="#8B6BA8" filter="url(#shadow)"/>
+      <text x="785" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">OSMnx</text>
+      <text x="785" y="52" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(255,255,255,0.7)">OSM graph</text>
+
+      <!-- Lifelines -->
+      <line x1="80"  y1="62" x2="80"  y2="550" stroke="#1A1A2E" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="230" y1="62" x2="230" y2="550" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="420" y1="62" x2="420" y2="550" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="610" y1="62" x2="610" y2="550" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="785" y1="62" x2="785" y2="550" stroke="#8B6BA8" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+      <!-- Step rows -->
+      <!-- y positions: 100, 150, 200, 250, 300, 350, 400, 450, 500 -->
+
+      <!-- Step 1: User draws polygon -->
+      <rect x="0" y="88" width="860" height="36" rx="0" fill="#F9FAFB"/>
+      <text x="10" y="104" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">1</text>
+      <rect x="55" y="94" width="50" height="24" rx="4" fill="#1A1A2E"/>
+      <text x="80" y="110" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#fff">draw</text>
+      <line x1="105" y1="106" x2="168" y2="106" stroke="#1A1A2E" stroke-width="2" marker-end="url(#arr2)"/>
+      <text x="136" y="100" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#374151">draws polygon</text>
+
+      <!-- Step 2: POST /api/analyze -->
+      <text x="10" y="152" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">2</text>
+      <line x1="232" y1="148" x2="418" y2="148" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr2b)"/>
+      <rect x="264" y="134" width="122" height="16" rx="3" fill="#EEF5FD"/>
+      <text x="325" y="146" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">POST /api/analyze + GeoJSON</text>
+
+      <!-- Step 3: returns job_id -->
+      <text x="10" y="182" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">3</text>
+      <line x1="418" y1="178" x2="232" y2="178" stroke="#5BA85A" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr2b)"/>
+      <rect x="264" y="164" width="122" height="16" rx="3" fill="#EEFAEE"/>
+      <text x="325" y="176" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">202 { job_id } + background thread</text>
+
+      <!-- Step 4: polls every 2s -->
+      <text x="10" y="218" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">4</text>
+      <line x1="232" y1="214" x2="418" y2="214" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr2b)"/>
+      <rect x="258" y="200" width="136" height="16" rx="3" fill="#EEF5FD"/>
+      <text x="325" y="212" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">GET /api/job/{id} every 2 s</text>
+
+      <!-- Step 5: build scene -->
+      <text x="10" y="258" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">5</text>
+      <line x1="422" y1="254" x2="608" y2="254" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr2o)"/>
+      <rect x="440" y="240" width="148" height="16" rx="3" fill="#FEF3E8"/>
+      <text x="514" y="252" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#E8934A">build scene: bldgs + veg + weather</text>
+
+      <!-- Step 6: UTCI simulation -->
+      <text x="10" y="292" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">6</text>
+      <rect x="568" y="282" width="84" height="20" rx="4" fill="#E8934A"/>
+      <text x="610" y="296" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#fff">UTCI simulation</text>
+      <text x="610" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#9CA3AF">running...</text>
+      <!-- self-arrow -->
+      <path d="M610,282 C645,282 650,296 645,310 C640,320 625,320 610,320" fill="none" stroke="#E8934A" stroke-width="1.5" marker-end="url(#arr2o)"/>
+
+      <!-- Step 7: sample streets -->
+      <text x="10" y="360" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">7</text>
+      <line x1="608" y1="356" x2="422" y2="356" stroke="#E8934A" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr2g)"/>
+      <rect x="434" y="342" width="158" height="16" rx="3" fill="#EEFAEE"/>
+      <text x="514" y="354" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">wind grid returned</text>
+
+      <line x1="422" y1="376" x2="788" y2="376" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr2p)"/>
+      <rect x="478" y="362" width="148" height="16" rx="3" fill="#EDE9F5"/>
+      <text x="551" y="374" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8B6BA8">sample street midpoints → OSMnx</text>
+
+      <line x1="788" y1="396" x2="422" y2="396" stroke="#8B6BA8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2g)"/>
+      <rect x="440" y="396" width="134" height="14" rx="3" fill="#EDE9F5"/>
+      <text x="506" y="407" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8B6BA8">street graph + scores</text>
+
+      <!-- Step 8: status=complete -->
+      <text x="10" y="432" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">8</text>
+      <rect x="390" y="424" width="60" height="20" rx="4" fill="#5BA85A"/>
+      <text x="420" y="438" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#fff">complete</text>
+
+      <!-- Step 9: GET results -->
+      <text x="10" y="468" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">9</text>
+      <line x1="232" y1="464" x2="418" y2="464" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr2b)"/>
+      <rect x="252" y="450" width="148" height="16" rx="3" fill="#EEF5FD"/>
+      <text x="325" y="462" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">GET /api/job/{id}/results</text>
+
+      <line x1="418" y1="484" x2="232" y2="484" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2b)"/>
+      <rect x="252" y="484" width="148" height="14" rx="3" fill="#EEFAEE"/>
+      <text x="325" y="495" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5BA85A">wind_image + planting_locations</text>
+
+      <!-- Step 10: render -->
+      <text x="10" y="522" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">10</text>
+      <line x1="230" y1="518" x2="82" y2="518" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr2)"/>
+      <rect x="100" y="504" width="110" height="16" rx="3" fill="#EEF5FD"/>
+      <text x="155" y="516" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">renders heatmap + recs</text>
+      <rect x="42" y="526" width="76" height="16" rx="4" fill="#1A1A2E"/>
+      <text x="80" y="538" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#fff">sees results</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- DIAGRAM 3 — ER                                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="d3">
+  <div class="diagram-label">Diagram 3</div>
+  <div class="diagram-title">What data, and how is it related?</div>
+  <div class="diagram-desc">Entity relationships — all stored in-memory (no persistent database).</div>
+
+  <div class="diagram-wrap">
+    <svg width="860" height="620" viewBox="0 0 860 620" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr3" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+        </marker>
+        <marker id="arr3s" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto">
+          <path d="M8,0 L8,6 L0,3 z" fill="#9CA3AF"/>
+        </marker>
+      </defs>
+
+      <!-- helper: entity box macro -->
+      <!-- AnalysisJob (center-top) -->
+      <g id="job">
+        <rect x="310" y="20" width="200" height="180" rx="10" fill="#fff" stroke="#5BA85A" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="310" y="20" width="200" height="28" rx="10" fill="#5BA85A"/>
+        <rect x="310" y="36" width="200" height="12" rx="0" fill="#5BA85A"/>
+        <text x="410" y="39" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">AnalysisJob</text>
+        <line x1="310" y1="48" x2="510" y2="48" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="322" y="63"  font-family="DM Mono,monospace" font-size="9" fill="#374151">id <tspan fill="#8B6BA8">(PK)</tspan></text>
+        <text x="322" y="78"  font-family="DM Mono,monospace" font-size="9" fill="#374151">status</text>
+        <text x="322" y="93"  font-family="DM Mono,monospace" font-size="9" fill="#374151">progress</text>
+        <text x="322" y="108" font-family="DM Mono,monospace" font-size="9" fill="#374151">step</text>
+        <text x="322" y="123" font-family="DM Mono,monospace" font-size="9" fill="#374151">polygon_geojson</text>
+        <text x="322" y="138" font-family="DM Mono,monospace" font-size="9" fill="#374151">created_at</text>
+      </g>
+
+      <!-- WindGrid (right of job) -->
+      <g>
+        <rect x="570" y="20" width="200" height="180" rx="10" fill="#fff" stroke="#4A90D9" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="570" y="20" width="200" height="28" rx="10" fill="#4A90D9"/>
+        <rect x="570" y="36" width="200" height="12" rx="0" fill="#4A90D9"/>
+        <text x="670" y="39" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">WindGrid</text>
+        <line x1="570" y1="48" x2="770" y2="48" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="582" y="63"  font-family="DM Mono,monospace" font-size="9" fill="#374151">job_id <tspan fill="#4A90D9">(FK→AnalysisJob)</tspan></text>
+        <text x="582" y="78"  font-family="DM Mono,monospace" font-size="9" fill="#374151">grid_2d_array</text>
+        <text x="582" y="93"  font-family="DM Mono,monospace" font-size="9" fill="#374151">bounds_west/south/east/north</text>
+        <text x="582" y="108" font-family="DM Mono,monospace" font-size="9" fill="#374151">wind_min</text>
+        <text x="582" y="123" font-family="DM Mono,monospace" font-size="9" fill="#374151">wind_max</text>
+        <text x="582" y="138" font-family="DM Mono,monospace" font-size="9" fill="#374151">wind_mean</text>
+      </g>
+
+      <!-- PlantingFeature (bottom-center) -->
+      <g>
+        <rect x="280" y="270" width="220" height="220" rx="10" fill="#fff" stroke="#8B6BA8" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="280" y="270" width="220" height="28" rx="10" fill="#8B6BA8"/>
+        <rect x="280" y="286" width="220" height="12" rx="0" fill="#8B6BA8"/>
+        <text x="390" y="289" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">PlantingFeature</text>
+        <line x1="280" y1="298" x2="500" y2="298" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="292" y="313" font-family="DM Mono,monospace" font-size="9" fill="#374151">id <tspan fill="#8B6BA8">(PK)</tspan></text>
+        <text x="292" y="328" font-family="DM Mono,monospace" font-size="9" fill="#374151">job_id <tspan fill="#4A90D9">(FK→AnalysisJob)</tspan></text>
+        <text x="292" y="343" font-family="DM Mono,monospace" font-size="9" fill="#374151">street_name</text>
+        <text x="292" y="358" font-family="DM Mono,monospace" font-size="9" fill="#374151">avg_wind</text>
+        <text x="292" y="373" font-family="DM Mono,monospace" font-size="9" fill="#374151">score</text>
+        <text x="292" y="388" font-family="DM Mono,monospace" font-size="9" fill="#374151">length_m</text>
+        <text x="292" y="403" font-family="DM Mono,monospace" font-size="9" fill="#374151">recommended_trees</text>
+        <text x="292" y="418" font-family="DM Mono,monospace" font-size="9" fill="#374151">cost_estimate (€)</text>
+        <text x="292" y="433" font-family="DM Mono,monospace" font-size="9" fill="#374151">recommended_species <tspan fill="#E8934A">(FK)</tspan></text>
+      </g>
+
+      <!-- TreeSpecies (bottom-right) -->
+      <g>
+        <rect x="560" y="270" width="200" height="180" rx="10" fill="#fff" stroke="#E8934A" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="560" y="270" width="200" height="28" rx="10" fill="#E8934A"/>
+        <rect x="560" y="286" width="200" height="12" rx="0" fill="#E8934A"/>
+        <text x="660" y="289" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">TreeSpecies</text>
+        <line x1="560" y1="298" x2="760" y2="298" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="572" y="313" font-family="DM Mono,monospace" font-size="9" fill="#374151">id <tspan fill="#8B6BA8">(PK)</tspan></text>
+        <text x="572" y="328" font-family="DM Mono,monospace" font-size="9" fill="#374151">name</text>
+        <text x="572" y="343" font-family="DM Mono,monospace" font-size="9" fill="#374151">cooling_score</text>
+        <text x="572" y="358" font-family="DM Mono,monospace" font-size="9" fill="#374151">LAI</text>
+        <text x="572" y="373" font-family="DM Mono,monospace" font-size="9" fill="#374151">PET_reduction</text>
+        <text x="572" y="388" font-family="DM Mono,monospace" font-size="9" fill="#374151">allergy_risk</text>
+        <text x="572" y="403" font-family="DM Mono,monospace" font-size="9" fill="#374151">avg_cost_eur</text>
+      </g>
+
+      <!-- Supplier (bottom far right) -->
+      <g>
+        <rect x="560" y="470" width="200" height="140" rx="10" fill="#fff" stroke="#E8934A" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="560" y="470" width="200" height="28" rx="10" fill="#E8934A"/>
+        <rect x="560" y="486" width="200" height="12" rx="0" fill="#E8934A"/>
+        <text x="660" y="489" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">Supplier</text>
+        <line x1="560" y1="498" x2="760" y2="498" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="572" y="513" font-family="DM Mono,monospace" font-size="9" fill="#374151">id <tspan fill="#8B6BA8">(PK)</tspan></text>
+        <text x="572" y="528" font-family="DM Mono,monospace" font-size="9" fill="#374151">name</text>
+        <text x="572" y="543" font-family="DM Mono,monospace" font-size="9" fill="#374151">location</text>
+        <text x="572" y="558" font-family="DM Mono,monospace" font-size="9" fill="#374151">min_order</text>
+        <text x="572" y="573" font-family="DM Mono,monospace" font-size="9" fill="#374151">lead_time</text>
+      </g>
+
+      <!-- RouteJob (top-left) -->
+      <g>
+        <rect x="20" y="20" width="200" height="180" rx="10" fill="#fff" stroke="#5BA85A" stroke-width="2" filter="url(#shadow)"/>
+        <rect x="20" y="20" width="200" height="28" rx="10" fill="#5BA85A"/>
+        <rect x="20" y="36" width="200" height="12" rx="0" fill="#5BA85A"/>
+        <text x="120" y="39" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#fff" font-weight="500">RouteJob</text>
+        <line x1="20" y1="48" x2="220" y2="48" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="32" y="63"  font-family="DM Mono,monospace" font-size="9" fill="#374151">id <tspan fill="#8B6BA8">(PK)</tspan></text>
+        <text x="32" y="78"  font-family="DM Mono,monospace" font-size="9" fill="#374151">status</text>
+        <text x="32" y="93"  font-family="DM Mono,monospace" font-size="9" fill="#374151">start_coords</text>
+        <text x="32" y="108" font-family="DM Mono,monospace" font-size="9" fill="#374151">end_coords</text>
+        <text x="32" y="123" font-family="DM Mono,monospace" font-size="9" fill="#374151">fastest_route_geojson</text>
+        <text x="32" y="138" font-family="DM Mono,monospace" font-size="9" fill="#374151">coolest_route_geojson</text>
+      </g>
+
+      <!-- ── RELATIONSHIP LINES ── -->
+
+      <!-- AnalysisJob 1 → 1 WindGrid -->
+      <line x1="510" y1="110" x2="568" y2="110" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="515" y="104" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">1</text>
+      <text x="550" y="104" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">1</text>
+      <rect x="514" y="115" width="48" height="14" rx="3" fill="#F3F4F6"/>
+      <text x="538" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#6B7280">has one</text>
+
+      <!-- AnalysisJob 1 → many PlantingFeature -->
+      <line x1="410" y1="200" x2="390" y2="268" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="396" y="225" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">1</text>
+      <text x="384" y="258" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">N</text>
+      <rect x="396" y="226" width="44" height="14" rx="3" fill="#F3F4F6"/>
+      <text x="418" y="236" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#6B7280">has many</text>
+
+      <!-- PlantingFeature N → 1 TreeSpecies -->
+      <line x1="500" y1="380" x2="558" y2="360" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <text x="506" y="373" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">N</text>
+      <text x="545" y="348" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">1</text>
+      <rect x="508" y="352" width="38" height="14" rx="3" fill="#F3F4F6"/>
+      <text x="527" y="362" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#6B7280">uses</text>
+
+      <!-- Supplier N ↔ N TreeSpecies (dotted many-to-many) -->
+      <line x1="660" y1="450" x2="660" y2="468" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr3)"/>
+      <text x="664" y="462" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">M:N</text>
+      <rect x="672" y="453" width="48" height="14" rx="3" fill="#F3F4F6"/>
+      <text x="696" y="463" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#6B7280">supplies</text>
+
+      <!-- RouteJob uses WindGrid data -->
+      <line x1="220" y1="110" x2="308" y2="110" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr3)"/>
+      <rect x="226" y="96" width="68" height="14" rx="3" fill="#F3F4F6"/>
+      <text x="260" y="106" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#6B7280">reads wind data</text>
+      <line x1="308" y1="108" x2="572" y2="108" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3,4"/>
+
+      <!-- In-memory note -->
+      <rect x="20" y="240" width="240" height="48" rx="8" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.5"/>
+      <text x="32" y="260" font-family="DM Mono,monospace" font-size="9" fill="#92400E" font-weight="500">⚠ No persistent database</text>
+      <text x="32" y="276" font-family="DM Mono,monospace" font-size="8" fill="#92400E">All entities stored in Python dict</text>
+      <text x="32" y="289" font-family="DM Mono,monospace" font-size="8" fill="#B45309">State resets on server restart</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- DIAGRAM 4 — DEPLOYMENT                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="d4">
+  <div class="diagram-label">Diagram 4</div>
+  <div class="diagram-title">Where does each part run?</div>
+  <div class="diagram-desc">Deployment zones and network connections.</div>
+
+  <div class="diagram-wrap">
+    <svg width="860" height="520" viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr4" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+        </marker>
+        <marker id="arr4b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+        </marker>
+        <marker id="arr4g" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+        </marker>
+        <marker id="arr4o" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#E8934A"/>
+        </marker>
+      </defs>
+
+      <!-- BROWSER ZONE -->
+      <rect x="10" y="10" width="230" height="300" rx="14" fill="#EEF5FD" stroke="#C3DCF5" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="125" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#4A90D9" letter-spacing="2" font-weight="500">☁  USER BROWSER</text>
+
+      <!-- React SPA -->
+      <rect x="28" y="48" width="194" height="72" rx="8" fill="#fff" stroke="#4A90D9" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="125" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#4A90D9" font-weight="500">React SPA</text>
+      <text x="125" y="83" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">React 18 + Vite</text>
+      <text x="125" y="97" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">MapLibre GL · Mapbox Draw</text>
+      <text x="125" y="111" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">http://localhost:5173 (dev)</text>
+
+      <!-- dist/ -->
+      <rect x="28" y="136" width="194" height="50" rx="8" fill="#F0F9FF" stroke="#93C5FD" stroke-width="1.5"/>
+      <text x="125" y="156" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#2563EB" font-weight="500">dist/ (production build)</text>
+      <text x="125" y="171" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">npm run build → static assets</text>
+      <text x="125" y="183" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">served by any static host</text>
+
+      <!-- CARTO tiles (fetched by browser) -->
+      <rect x="28" y="202" width="194" height="48" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+      <text x="125" y="220" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#475569" font-weight="500">CARTO basemap tiles</text>
+      <text x="125" y="235" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">raster tiles (OSM data)</text>
+      <text x="125" y="247" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">MapTiler 3D @ zoom ≥ 12</text>
+
+      <!-- SERVER ZONE -->
+      <rect x="290" y="10" width="250" height="420" rx="14" fill="#EEFAEE" stroke="#A7D9A6" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="415" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5BA85A" letter-spacing="2" font-weight="500">⬛  LOCAL SERVER</text>
+
+      <!-- FastAPI -->
+      <rect x="308" y="48" width="214" height="80" rx="8" fill="#fff" stroke="#5BA85A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="415" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#5BA85A" font-weight="500">FastAPI + Uvicorn</text>
+      <text x="415" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">Python 3.11+ · main.py</text>
+      <text x="415" y="99" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">routing · simulation · PDF</text>
+      <text x="415" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">http://localhost:8000</text>
+
+      <!-- Python venv -->
+      <rect x="308" y="144" width="214" height="48" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+      <text x="415" y="163" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#166534" font-weight="500">Python venv</text>
+      <text x="415" y="178" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">infrared-sdk · fastapi · osmnx</text>
+      <text x="415" y="190" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">geopandas · networkx · reportlab</text>
+
+      <!-- cache folder -->
+      <rect x="308" y="208" width="214" height="44" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+      <text x="415" y="226" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151" font-weight="500">cache/ folder</text>
+      <text x="415" y="241" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">JSON simulation snapshots</text>
+      <text x="415" y="252" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">8 cached entries (git-tracked)</text>
+
+      <!-- Baumkataster local -->
+      <rect x="308" y="268" width="214" height="48" rx="8" fill="#EDE9F5" stroke="#C4B5FD" stroke-width="1"/>
+      <text x="415" y="287" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5B21B6" font-weight="500">baumkataster_wien.geojson</text>
+      <text x="415" y="302" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">230,620 trees · local file</text>
+      <text x="415" y="313" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">manual download required</text>
+
+      <!-- tree_species.md + suppliers.md -->
+      <rect x="308" y="332" width="214" height="44" rx="8" fill="#EDE9F5" stroke="#C4B5FD" stroke-width="1"/>
+      <text x="415" y="350" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5B21B6" font-weight="500">data/tree_species.md</text>
+      <text x="415" y="365" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">data/suppliers.md</text>
+      <text x="415" y="377" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">parsed at runtime via regex</text>
+
+      <!-- In-memory jobs dict -->
+      <rect x="308" y="392" width="214" height="30" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+      <text x="415" y="411" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#92400E">jobs{} in-memory · no DB</text>
+
+      <!-- EXTERNAL APIS ZONE -->
+      <rect x="590" y="10" width="252" height="420" rx="14" fill="#FEF3E8" stroke="#F0C08A" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="716" y="34" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#E8934A" letter-spacing="2" font-weight="500">☁  EXTERNAL APIS</text>
+
+      <!-- Infrared API -->
+      <rect x="608" y="48" width="216" height="80" rx="8" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="716" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">Infrared API</text>
+      <text x="716" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">hackathon.infrared.city</text>
+      <text x="716" y="99" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">UTCI · Wind · Solar · SVF</text>
+      <text x="716" y="114" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">INFRARED_API_KEY required</text>
+
+      <!-- Nominatim -->
+      <rect x="608" y="144" width="216" height="60" rx="8" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="716" y="163" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">OSM Nominatim</text>
+      <text x="716" y="178" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">geocoding (free)</text>
+      <text x="716" y="193" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">nominatim.openstreetmap.org</text>
+
+      <!-- OpenStreetMap (OSMnx) -->
+      <rect x="608" y="220" width="216" height="60" rx="8" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="716" y="239" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">OpenStreetMap</text>
+      <text x="716" y="255" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">OSMnx pedestrian graph</text>
+      <text x="716" y="270" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">overpass-api.de</text>
+
+      <!-- TMYx weather data -->
+      <rect x="608" y="296" width="216" height="60" rx="8" fill="#fff" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="716" y="315" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#E8934A" font-weight="500">TMYx Weather</text>
+      <text x="716" y="331" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#374151">Vienna Innere Stadt station</text>
+      <text x="716" y="347" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">via Infrared SDK</text>
+
+      <!-- Stadt Wien open data -->
+      <rect x="608" y="372" width="216" height="50" rx="8" fill="#F8F5FF" stroke="#C4B5FD" stroke-width="1"/>
+      <text x="716" y="391" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5B21B6" font-weight="500">Stadt Wien Open Data</text>
+      <text x="716" y="406" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#6B7280">Baumkataster download</text>
+      <text x="716" y="416" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">CC BY 4.0</text>
+
+      <!-- ── ARROWS ── -->
+
+      <!-- Browser → Server: HTTP REST -->
+      <path d="M240,88 L306,88" fill="none" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr4b)"/>
+      <rect x="244" y="74" width="58" height="16" rx="3" fill="#EEF5FD"/>
+      <text x="273" y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#4A90D9">HTTP REST</text>
+
+      <path d="M308,104 L242,104" fill="none" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr4b)"/>
+      <rect x="244" y="105" width="56" height="14" rx="3" fill="#EEFAEE"/>
+      <text x="272" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#5BA85A">JSON / PNG</text>
+
+      <!-- Server → Infrared: SDK call -->
+      <path d="M522,88 L606,88" fill="none" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr4o)"/>
+      <rect x="526" y="74" width="72" height="16" rx="3" fill="#FEF3E8"/>
+      <text x="562" y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#E8934A">SDK HTTPS</text>
+
+      <!-- Server → Nominatim -->
+      <path d="M522,174 L606,174" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr4o)"/>
+      <rect x="526" y="160" width="72" height="16" rx="3" fill="#FEF3E8"/>
+      <text x="562" y="172" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#E8934A">HTTPS GET</text>
+
+      <!-- Server → OSMnx/OSM -->
+      <path d="M522,250 L606,250" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr4o)"/>
+      <rect x="526" y="236" width="72" height="16" rx="3" fill="#FEF3E8"/>
+      <text x="562" y="248" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#E8934A">Overpass API</text>
+
+      <!-- Vite proxy note -->
+      <rect x="10" y="330" width="230" height="50" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+      <text x="125" y="349" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#166534" font-weight="500">Vite dev proxy</text>
+      <text x="125" y="363" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#374151">/api/* → localhost:8000</text>
+      <text x="125" y="375" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#9CA3AF">avoids CORS in dev mode</text>
+
+      <!-- ENV note -->
+      <rect x="10" y="396" width="230" height="34" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+      <text x="125" y="414" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#92400E">INFRARED_API_KEY in .env</text>
+      <text x="125" y="426" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#B45309">never exposed to browser</text>
+    </svg>
+  </div>
+</section>
+
+<!-- LEGEND -->
+<footer>
+  <div class="legend-title">Color legend</div>
+  <div class="legend-items">
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#4A90D9"></div>
+      <span>Frontend / Browser (React, MapLibre)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#5BA85A"></div>
+      <span>Backend / Server (FastAPI, Python)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#E8934A"></div>
+      <span>External Services (Infrared, OSM, Nominatim)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#8B6BA8"></div>
+      <span>Data / Storage (GeoJSON, entities, files)</span>
+    </div>
+  </div>
+  <div class="footer-note">
+    Treeat · Urban Thermal Comfort Routing · Vienna Leopoldstadt · Infrared SDK Hackathon May 2026<br>
+    React 18 + FastAPI · No persistent database · All analysis is on-demand and stateless between restarts
+  </div>
+</footer>
+
+</body>
+</html>

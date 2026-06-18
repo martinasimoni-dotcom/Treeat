@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="640" viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <marker id="arr-b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+    </marker>
+    <marker id="arr-o" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#E8934A"/>
+    </marker>
+    <marker id="arr-p" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8B6BA8"/>
+    </marker>
+    <marker id="arr-k" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1A1A2E"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1A1A2E" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="640" fill="#FAFAF8"/>
+
+  <!-- Title -->
+  <text x="30" y="30" font-size="11" fill="#9CA3AF" letter-spacing="2">DIAGRAM 2 — SEQUENCE</text>
+  <text x="30" y="54" font-size="22" fill="#1A1A2E" font-weight="bold">What happens, in what order?</text>
+
+  <!-- Actor x-centers: User=80, Frontend=230, Backend=430, Infrared=630, OSMnx=820 -->
+
+  <!-- Actor headers -->
+  <rect x="34"  y="74" width="92"  height="50" rx="8" fill="#1A1A2E" filter="url(#sh)"/>
+  <text x="80"  y="97"  text-anchor="middle" font-size="10" fill="white" font-weight="bold">User</text>
+  <text x="80"  y="114" text-anchor="middle" font-size="8"  fill="rgba(255,255,255,0.5)">human</text>
+
+  <rect x="172" y="74" width="116" height="50" rx="8" fill="#4A90D9" filter="url(#sh)"/>
+  <text x="230" y="97"  text-anchor="middle" font-size="10" fill="white" font-weight="bold">Frontend</text>
+  <text x="230" y="114" text-anchor="middle" font-size="8"  fill="rgba(255,255,255,0.75)">React SPA</text>
+
+  <rect x="370" y="74" width="120" height="50" rx="8" fill="#5BA85A" filter="url(#sh)"/>
+  <text x="430" y="97"  text-anchor="middle" font-size="10" fill="white" font-weight="bold">Backend</text>
+  <text x="430" y="114" text-anchor="middle" font-size="8"  fill="rgba(255,255,255,0.75)">FastAPI</text>
+
+  <rect x="568" y="74" width="124" height="50" rx="8" fill="#E8934A" filter="url(#sh)"/>
+  <text x="630" y="97"  text-anchor="middle" font-size="10" fill="white" font-weight="bold">Infrared SDK</text>
+  <text x="630" y="114" text-anchor="middle" font-size="8"  fill="rgba(255,255,255,0.75)">API call</text>
+
+  <rect x="762" y="74" width="116" height="50" rx="8" fill="#8B6BA8" filter="url(#sh)"/>
+  <text x="820" y="97"  text-anchor="middle" font-size="10" fill="white" font-weight="bold">OSMnx</text>
+  <text x="820" y="114" text-anchor="middle" font-size="8"  fill="rgba(255,255,255,0.75)">OSM graph</text>
+
+  <!-- Lifelines -->
+  <line x1="80"  y1="124" x2="80"  y2="620" stroke="#1A1A2E" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="230" y1="124" x2="230" y2="620" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="430" y1="124" x2="430" y2="620" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="630" y1="124" x2="630" y2="620" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="820" y1="124" x2="820" y2="620" stroke="#8B6BA8" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Step rows - alternating backgrounds -->
+  <rect x="0" y="140" width="900" height="44" fill="#F9FAFB"/>
+  <rect x="0" y="228" width="900" height="44" fill="#F9FAFB"/>
+  <rect x="0" y="316" width="900" height="44" fill="#F9FAFB"/>
+  <rect x="0" y="404" width="900" height="88" fill="#F9FAFB"/>
+  <rect x="0" y="536" width="900" height="44" fill="#F9FAFB"/>
+
+  <!-- Step number labels -->
+  <text x="10" y="167" font-size="9" fill="#9CA3AF" font-weight="bold">1</text>
+  <text x="10" y="211" font-size="9" fill="#9CA3AF" font-weight="bold">2</text>
+  <text x="10" y="255" font-size="9" fill="#9CA3AF" font-weight="bold">3</text>
+  <text x="10" y="299" font-size="9" fill="#9CA3AF" font-weight="bold">4</text>
+  <text x="10" y="355" font-size="9" fill="#9CA3AF" font-weight="bold">5</text>
+  <text x="10" y="395" font-size="9" fill="#9CA3AF" font-weight="bold">6</text>
+  <text x="10" y="455" font-size="9" fill="#9CA3AF" font-weight="bold">7</text>
+  <text x="10" y="515" font-size="9" fill="#9CA3AF" font-weight="bold">8</text>
+  <text x="10" y="555" font-size="9" fill="#9CA3AF" font-weight="bold">9</text>
+  <text x="10" y="601" font-size="9" fill="#9CA3AF" font-weight="bold">10</text>
+
+  <!-- Step 1: User draws polygon -->
+  <rect x="54" y="152" width="52" height="22" rx="4" fill="#1A1A2E"/>
+  <text x="80" y="167" text-anchor="middle" font-size="8" fill="white">draw ▶</text>
+  <line x1="106" y1="163" x2="228" y2="163" stroke="#1A1A2E" stroke-width="2" marker-end="url(#arr-k)"/>
+  <text x="167" y="158" text-anchor="middle" font-size="8" fill="#374151">draws polygon on map</text>
+
+  <!-- Step 2: POST /api/analyze -->
+  <line x1="232" y1="207" x2="428" y2="207" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-b)"/>
+  <rect x="260" y="192" width="138" height="16" rx="3" fill="#EEF5FD"/>
+  <text x="329" y="204" text-anchor="middle" font-size="8" fill="#4A90D9">POST /api/analyze + GeoJSON</text>
+
+  <!-- Step 3: returns job_id -->
+  <line x1="428" y1="251" x2="232" y2="251" stroke="#5BA85A" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-b)"/>
+  <rect x="260" y="236" width="138" height="16" rx="3" fill="#EEFAEE"/>
+  <text x="329" y="248" text-anchor="middle" font-size="8" fill="#5BA85A">202 { job_id } + thread start</text>
+
+  <!-- Step 4: polls every 2s -->
+  <line x1="232" y1="295" x2="428" y2="295" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-b)"/>
+  <rect x="260" y="280" width="138" height="16" rx="3" fill="#EEF5FD"/>
+  <text x="329" y="292" text-anchor="middle" font-size="8" fill="#4A90D9">GET /api/job/{id} every 2 s</text>
+
+  <!-- Step 5: build scene -->
+  <line x1="432" y1="351" x2="628" y2="351" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr-o)"/>
+  <rect x="454" y="336" width="152" height="16" rx="3" fill="#FEF3E8"/>
+  <text x="530" y="348" text-anchor="middle" font-size="8" fill="#E8934A">build scene: bldgs + veg + weather</text>
+
+  <!-- Step 6: UTCI simulation (self-loop) -->
+  <rect x="592" y="393" width="76" height="22" rx="4" fill="#E8934A"/>
+  <text x="630" y="408" text-anchor="middle" font-size="8" fill="white">UTCI sim...</text>
+  <path d="M630,390 C672,390 676,404 670,418 C664,430 648,430 630,430" fill="none" stroke="#E8934A" stroke-width="1.5" marker-end="url(#arr-o)"/>
+
+  <!-- Step 7a: wind grid returned -->
+  <line x1="628" y1="455" x2="432" y2="455" stroke="#E8934A" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-g)"/>
+  <rect x="454" y="440" width="152" height="16" rx="3" fill="#EEFAEE"/>
+  <text x="530" y="452" text-anchor="middle" font-size="8" fill="#5BA85A">wind grid returned</text>
+
+  <!-- Step 7b: sample OSMnx -->
+  <line x1="432" y1="479" x2="818" y2="479" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr-p)"/>
+  <rect x="540" y="464" width="156" height="16" rx="3" fill="#EDE9F5"/>
+  <text x="618" y="476" text-anchor="middle" font-size="8" fill="#8B6BA8">sample street midpoints via OSMnx</text>
+
+  <!-- Step 7c: OSMnx returns -->
+  <line x1="818" y1="499" x2="432" y2="499" stroke="#8B6BA8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-g)"/>
+  <rect x="540" y="499" width="130" height="14" rx="3" fill="#EDE9F5"/>
+  <text x="604" y="510" text-anchor="middle" font-size="8" fill="#8B6BA8">street graph + wind scores</text>
+
+  <!-- Step 8: complete -->
+  <rect x="406" y="524" width="48" height="22" rx="4" fill="#5BA85A"/>
+  <text x="430" y="539" text-anchor="middle" font-size="8" fill="white">complete</text>
+
+  <!-- Step 9: GET results -->
+  <line x1="232" y1="563" x2="428" y2="563" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-b)"/>
+  <rect x="256" y="548" width="148" height="16" rx="3" fill="#EEF5FD"/>
+  <text x="330" y="560" text-anchor="middle" font-size="8" fill="#4A90D9">GET /api/job/{id}/results</text>
+
+  <line x1="428" y1="581" x2="232" y2="581" stroke="#5BA85A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-b)"/>
+  <rect x="256" y="581" width="148" height="14" rx="3" fill="#EEFAEE"/>
+  <text x="330" y="592" text-anchor="middle" font-size="8" fill="#5BA85A">wind_image + planting_locations</text>
+
+  <!-- Step 10: render heatmap -->
+  <line x1="228" y1="613" x2="82" y2="613" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-k)"/>
+  <rect x="96" y="598" width="118" height="16" rx="3" fill="#EEF5FD"/>
+  <text x="155" y="610" text-anchor="middle" font-size="8" fill="#4A90D9">renders heatmap + recs on map</text>
+  <rect x="54" y="613" width="52" height="16" rx="4" fill="#1A1A2E"/>
+  <text x="80" y="625" text-anchor="middle" font-size="8" fill="white">sees result</text>
+
+  <!-- Legend -->
+  <rect x="20" y="625" width="860" height="14" rx="3" fill="none"/>
+  <text x="880" y="636" text-anchor="end" font-size="8" fill="#9CA3AF">Treeat · Architecture · 2026</text>
+</svg>

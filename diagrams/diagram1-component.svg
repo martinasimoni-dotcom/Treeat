@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="480" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4A90D9"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5BA85A"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/>
+    </marker>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1A1A2E" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="480" fill="#FAFAF8"/>
+
+  <!-- Title -->
+  <text x="30" y="34" font-size="11" fill="#9CA3AF" letter-spacing="2">DIAGRAM 1 — COMPONENT</text>
+  <text x="30" y="58" font-size="22" fill="#1A1A2E" font-weight="bold">What are the parts?</text>
+
+  <!-- ── BROWSER ZONE ── -->
+  <rect x="20" y="80" width="210" height="360" rx="12" fill="#EEF5FD" stroke="#C3DCF5" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="125" y="103" text-anchor="middle" font-size="9" fill="#4A90D9" letter-spacing="2" font-weight="bold">BROWSER</text>
+
+  <!-- Frontend box -->
+  <rect x="38" y="114" width="174" height="82" rx="10" fill="white" stroke="#4A90D9" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="38" y="114" width="174" height="26" rx="10" fill="#4A90D9"/>
+  <rect x="38" y="128" width="174" height="12" fill="#4A90D9"/>
+  <text x="125" y="132" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Frontend</text>
+  <text x="125" y="156" text-anchor="middle" font-size="9" fill="#374151">React 18 + Vite</text>
+  <text x="125" y="171" text-anchor="middle" font-size="9" fill="#374151">MapLibre GL · Draw</text>
+  <text x="125" y="186" text-anchor="middle" font-size="8" fill="#6B7280">:5173 (dev)</text>
+
+  <!-- Map tiles -->
+  <rect x="38" y="212" width="174" height="52" rx="8" fill="#F0F9FF" stroke="#93C5FD" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="125" y="234" text-anchor="middle" font-size="9" fill="#3B82F6">CARTO tiles</text>
+  <text x="125" y="249" text-anchor="middle" font-size="9" fill="#6B7280">basemap raster</text>
+  <text x="125" y="262" text-anchor="middle" font-size="8" fill="#9CA3AF">+ MapTiler 3D buildings</text>
+
+  <line x1="125" y1="196" x2="125" y2="210" stroke="#93C5FD" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-gray)"/>
+
+  <!-- ── SERVER ZONE ── -->
+  <rect x="278" y="80" width="234" height="360" rx="12" fill="#EEFAEE" stroke="#A7D9A6" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="395" y="103" text-anchor="middle" font-size="9" fill="#5BA85A" letter-spacing="2" font-weight="bold">SERVER</text>
+
+  <!-- Backend box -->
+  <rect x="294" y="114" width="202" height="82" rx="10" fill="white" stroke="#5BA85A" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="294" y="114" width="202" height="26" rx="10" fill="#5BA85A"/>
+  <rect x="294" y="128" width="202" height="12" fill="#5BA85A"/>
+  <text x="395" y="132" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Backend</text>
+  <text x="395" y="156" text-anchor="middle" font-size="9" fill="#374151">FastAPI + Uvicorn</text>
+  <text x="395" y="171" text-anchor="middle" font-size="9" fill="#374151">Python 3.11+</text>
+  <text x="395" y="186" text-anchor="middle" font-size="8" fill="#6B7280">holds INFRARED_API_KEY · :8000</text>
+
+  <!-- Baumkataster -->
+  <rect x="294" y="210" width="202" height="52" rx="8" fill="white" stroke="#8B6BA8" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="395" y="232" text-anchor="middle" font-size="9" fill="#8B6BA8" font-weight="bold">Baumkataster GeoJSON</text>
+  <text x="395" y="247" text-anchor="middle" font-size="9" fill="#6B7280">230,620 public trees</text>
+  <text x="395" y="260" text-anchor="middle" font-size="8" fill="#9CA3AF">local file · CC BY 4.0</text>
+
+  <!-- ReportLab -->
+  <rect x="294" y="276" width="202" height="52" rx="8" fill="white" stroke="#8B6BA8" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="395" y="298" text-anchor="middle" font-size="9" fill="#8B6BA8" font-weight="bold">ReportLab + WeasyPrint</text>
+  <text x="395" y="313" text-anchor="middle" font-size="9" fill="#6B7280">PDF planting plan</text>
+  <text x="395" y="325" text-anchor="middle" font-size="8" fill="#9CA3AF">GET /api/planting-plan-pdf/{id}</text>
+
+  <line x1="395" y1="196" x2="395" y2="208" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="395" y1="262" x2="395" y2="274" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- In-memory note -->
+  <rect x="294" y="342" width="202" height="38" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="395" y="360" text-anchor="middle" font-size="8" fill="#92400E" font-weight="bold">⚠ In-memory job store only</text>
+  <text x="395" y="374" text-anchor="middle" font-size="8" fill="#92400E">no DB · clears on restart</text>
+
+  <!-- ── EXTERNAL ZONE ── -->
+  <rect x="562" y="80" width="316" height="360" rx="12" fill="#FEF3E8" stroke="#F0C08A" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="720" y="103" text-anchor="middle" font-size="9" fill="#E8934A" letter-spacing="2" font-weight="bold">EXTERNAL SERVICES</text>
+
+  <!-- Infrared SDK -->
+  <rect x="578" y="114" width="284" height="80" rx="10" fill="white" stroke="#E8934A" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="578" y="114" width="284" height="26" rx="10" fill="#E8934A"/>
+  <rect x="578" y="128" width="284" height="12" fill="#E8934A"/>
+  <text x="720" y="132" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Infrared SDK → API</text>
+  <text x="720" y="156" text-anchor="middle" font-size="9" fill="#374151">UTCI / Wind simulation</text>
+  <text x="720" y="171" text-anchor="middle" font-size="9" fill="#374151">Buildings · Vegetation · Weather (TMYx)</text>
+  <text x="720" y="184" text-anchor="middle" font-size="8" fill="#6B7280">hackathon.infrared.city</text>
+
+  <!-- OSMnx -->
+  <rect x="578" y="208" width="284" height="66" rx="10" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="720" y="230" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">OSMnx → OpenStreetMap</text>
+  <text x="720" y="247" text-anchor="middle" font-size="9" fill="#374151">pedestrian graph · Dijkstra routing</text>
+  <text x="720" y="262" text-anchor="middle" font-size="9" fill="#6B7280">street network · building data</text>
+
+  <!-- Nominatim -->
+  <rect x="578" y="288" width="284" height="54" rx="10" fill="white" stroke="#E8934A" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="720" y="310" text-anchor="middle" font-size="10" fill="#E8934A" font-weight="bold">OSM Nominatim</text>
+  <text x="720" y="327" text-anchor="middle" font-size="9" fill="#374151">geocoding · address → coordinates</text>
+  <text x="720" y="336" text-anchor="middle" font-size="8" fill="#9CA3AF">nominatim.openstreetmap.org</text>
+
+  <!-- ── ARROWS ── -->
+  <!-- Frontend → Backend HTTP REST -->
+  <path d="M212,152 C244,152 262,152 292,152" fill="none" stroke="#4A90D9" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="216" y="138" width="68" height="16" rx="4" fill="#EEF5FD"/>
+  <text x="250" y="150" text-anchor="middle" font-size="8" fill="#4A90D9">HTTP / REST</text>
+
+  <!-- Backend → Frontend response -->
+  <path d="M294,172 C262,172 244,172 214,172" fill="none" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <rect x="216" y="172" width="68" height="14" rx="3" fill="#EEF5FD"/>
+  <text x="250" y="183" text-anchor="middle" font-size="8" fill="#4A90D9">JSON / PNG</text>
+
+  <!-- Backend → Infrared SDK -->
+  <path d="M496,148 C528,148 546,148 576,148" fill="none" stroke="#5BA85A" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="500" y="134" width="72" height="16" rx="4" fill="#EEFAEE"/>
+  <text x="536" y="146" text-anchor="middle" font-size="8" fill="#5BA85A">SDK + API key</text>
+
+  <!-- Infrared → Backend wind grid -->
+  <path d="M578,174 C546,174 528,174 498,174" fill="none" stroke="#E8934A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <rect x="500" y="174" width="70" height="14" rx="3" fill="#FEF3E8"/>
+  <text x="535" y="185" text-anchor="middle" font-size="8" fill="#E8934A">wind grid PNG</text>
+
+  <!-- Backend → OSMnx -->
+  <path d="M496,242 C528,242 546,242 576,242" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="500" y="228" width="68" height="16" rx="4" fill="#EEFAEE"/>
+  <text x="534" y="240" text-anchor="middle" font-size="8" fill="#5BA85A">OSM query</text>
+
+  <!-- Backend → Nominatim -->
+  <path d="M496,310 C528,310 546,316 576,316" fill="none" stroke="#5BA85A" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="500" y="296" width="68" height="16" rx="4" fill="#EEFAEE"/>
+  <text x="534" y="308" text-anchor="middle" font-size="8" fill="#5BA85A">geocode req</text>
+
+  <!-- Legend -->
+  <rect x="20" y="450" width="860" height="24" rx="4" fill="#F3F4F6"/>
+  <circle cx="40" cy="462" r="5" fill="#4A90D9"/>
+  <text x="50" y="466" font-size="8" fill="#374151">Frontend</text>
+  <circle cx="130" cy="462" r="5" fill="#5BA85A"/>
+  <text x="140" y="466" font-size="8" fill="#374151">Backend</text>
+  <circle cx="220" cy="462" r="5" fill="#E8934A"/>
+  <text x="230" y="466" font-size="8" fill="#374151">External Services</text>
+  <circle cx="340" cy="462" r="5" fill="#8B6BA8"/>
+  <text x="350" y="466" font-size="8" fill="#374151">Data / Files</text>
+  <text x="860" y="466" text-anchor="end" font-size="8" fill="#9CA3AF">Treeat · Architecture · 2026</text>
+</svg>
