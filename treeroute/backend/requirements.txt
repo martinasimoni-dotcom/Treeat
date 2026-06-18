@@ -1,10 +1,16 @@
-infrared-sdk
+infrared-sdk==0.4.9
 fastapi
 uvicorn
 python-dotenv
+sqlalchemy
+psycopg2-binary
 osmnx
+scikit-learn
 geopandas
 networkx
+numpy
+shapely
+matplotlib
 requests
 httpx
 reportlab
